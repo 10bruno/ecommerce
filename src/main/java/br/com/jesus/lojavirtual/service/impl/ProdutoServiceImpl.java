@@ -1,7 +1,8 @@
-package br.com.jesus.lojavirtual.service;
+package br.com.jesus.lojavirtual.service.impl;
 
-import br.com.jesus.lojavirtual.entity.Produto;
-import br.com.jesus.lojavirtual.repository.ProdutoRepository;
+import br.com.jesus.lojavirtual.postgres.domain.Produto;
+import br.com.jesus.lojavirtual.postgres.repository.ProdutoRepository;
+import br.com.jesus.lojavirtual.service.ProdutoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,12 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class LojaVirtualServiceImpl implements LojaVirtualService {
+public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository produtoRepository;
 
     @Autowired
-    public LojaVirtualServiceImpl(ProdutoRepository produtoRepository) {
+    public ProdutoServiceImpl(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
     }
 
@@ -31,12 +32,7 @@ public class LojaVirtualServiceImpl implements LojaVirtualService {
     }
 
     @Override
-    public Produto atualizaProduto(Produto produto) {
-        return this.produtoRepository.save(produto);
-    }
-
-    @Override
-    public Produto novoProduto(Produto produto) {
+    public Produto criaAtualizaProduto(Produto produto) {
         return this.produtoRepository.save(produto);
     }
 

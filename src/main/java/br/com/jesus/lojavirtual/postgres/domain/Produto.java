@@ -1,10 +1,14 @@
-package br.com.jesus.lojavirtual.entity;
+package br.com.jesus.lojavirtual.postgres.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -13,16 +17,16 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-public class Produto {
+@Table(name = "produto")
+public class Produto implements Serializable {
 
     @Id
-    String codigo;
-    String categoria;
-    String titulo;
-    String descricao;
-    BigDecimal peso;
-    LocalDate dtCadastro;
+    private String codigo;
+    private String categoria;
+    private String titulo;
+    private String descricao;
+    private BigDecimal peso;
+    private LocalDate dtCadastro;
 
     @Override
     public boolean equals(Object o) {
@@ -35,5 +39,8 @@ public class Produto {
     @Override
     public int hashCode() {
         return 0;
+    }
+
+    public Produto() {
     }
 }

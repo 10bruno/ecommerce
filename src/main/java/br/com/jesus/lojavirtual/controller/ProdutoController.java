@@ -1,7 +1,7 @@
 package br.com.jesus.lojavirtual.controller;
 
-import br.com.jesus.lojavirtual.entity.Produto;
-import br.com.jesus.lojavirtual.service.LojaVirtualService;
+import br.com.jesus.lojavirtual.postgres.domain.Produto;
+import br.com.jesus.lojavirtual.service.ProdutoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,45 +10,45 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/lojavirtual")
+@RequestMapping("/lojavirtual/produto")
 @Slf4j
-public class LojaVirtualController {
+public class ProdutoController {
 
-    private final LojaVirtualService lojaVirtualService;
+    private final ProdutoService produtoService;
 
     @Autowired
-    public LojaVirtualController(LojaVirtualService lojaVirtualService) {
-        this.lojaVirtualService = lojaVirtualService;
+    public ProdutoController(ProdutoService produtoService) {
+        this.produtoService = produtoService;
     }
 
-    @GetMapping("/produto/{id}")
+    @GetMapping("/{id}")
     public Optional<Produto> getUmProduto(@PathVariable String id) {
         log.info("GET - Pesquisando um produto especifico {}", id);
-        return this.lojaVirtualService.recuperaUmProduto(id);
+        return this.produtoService.recuperaUmProduto(id);
     }
 
-    @GetMapping("/produto")
+    @GetMapping()
     public List<Produto> getListaProdutos() {
         log.info("GET - Pesquisando uma lista de todos os produtos");
-        return this.lojaVirtualService.recuperaListaProdutos();
+        return this.produtoService.recuperaListaProdutos();
     }
 
-    @PutMapping("/produto/")
+    @PutMapping()
     public Produto putUmProduto(@RequestBody Produto produto) {
         log.info("PUT - Altera um ou alguns elementos de um produto especifico {}", produto);
-        return this.lojaVirtualService.atualizaProduto(produto);
+        return this.produtoService.criaAtualizaProduto(produto);
     }
 
-    @PostMapping("/produto")
+    @PostMapping()
     public Produto postNovoProduto(@RequestBody Produto produto) {
         log.info("POST - Cria um novo produto {}", produto);
-        return this.lojaVirtualService.novoProduto(produto);
+        return this.produtoService.criaAtualizaProduto(produto);
     }
 
-    @DeleteMapping("/produto/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUmProduto(@PathVariable String id) {
         log.info("DELETE - Deleta um produto {}", id);
-        this.lojaVirtualService.deletaProduto(id);
+        this.produtoService.deletaProduto(id);
     }
 
 }

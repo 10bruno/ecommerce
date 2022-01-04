@@ -1,6 +1,6 @@
 package br.com.jesus.lojavirtual.controller;
 
-import br.com.jesus.lojavirtual.postgres.domain.Estoque;
+import br.com.jesus.lojavirtual.domain.entity.postgres.Estoque;
 import br.com.jesus.lojavirtual.service.EstoqueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

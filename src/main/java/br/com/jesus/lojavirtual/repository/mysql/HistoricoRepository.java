@@ -1,6 +1,6 @@
-package br.com.jesus.lojavirtual.mysql.repository;
+package br.com.jesus.lojavirtual.repository.mysql;
 
-import br.com.jesus.lojavirtual.mysql.domain.Historico;
+import br.com.jesus.lojavirtual.domain.entity.mysql.Historico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

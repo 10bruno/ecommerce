@@ -1,7 +1,6 @@
-package br.com.jesus.lojavirtual.mysql.domain;
+package br.com.jesus.lojavirtual.domain.entity.postgres;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -10,33 +9,38 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@Table(name = "historico_pagamentos")
-public class Historico implements Serializable {
+@Table(name = "produto")
+public class Produto implements Serializable {
 
     @Id
-    private Integer id;
+    private String codigo;
+    private String categoria;
+    private String titulo;
     private String descricao;
-    private String tipo;
-    private Date data;
+    private BigDecimal peso;
+    private LocalDate dtCadastro;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Historico historico = (Historico) o;
-        return Objects.equals(id, historico.id);
+        Produto produto = (Produto) o;
+        return Objects.equals(codigo, produto.codigo);
     }
 
     @Override
     public int hashCode() {
         return 0;
+    }
+
+    public Produto() {
     }
 }

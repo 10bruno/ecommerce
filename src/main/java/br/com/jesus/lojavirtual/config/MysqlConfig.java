@@ -1,6 +1,4 @@
-package br.com.jesus.lojavirtual.mysql.config;
-
-//import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
+package br.com.jesus.lojavirtual.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -20,7 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"br.com.jesus.lojavirtual.mysql.repository"})
+        basePackages = {"br.com.jesus.lojavirtual.repository.mysql"})
 public class MysqlConfig {
 
     @Primary
@@ -36,7 +34,7 @@ public class MysqlConfig {
             EntityManagerFactoryBuilder builder, DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("br.com.jesus.lojavirtual.mysql.domain")
+                .packages("br.com.jesus.lojavirtual.domain.entity.mysql")
                 .persistenceUnit("historico_pagamentos")
                 .build();
     }

@@ -1,7 +1,7 @@
 package br.com.jesus.lojavirtual.service.impl;
 
-import br.com.jesus.lojavirtual.mysql.domain.Historico;
-import br.com.jesus.lojavirtual.mysql.repository.HistoricoRepository;
+import br.com.jesus.lojavirtual.domain.entity.mysql.Historico;
+import br.com.jesus.lojavirtual.repository.mysql.HistoricoRepository;
 import br.com.jesus.lojavirtual.service.HistoricoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

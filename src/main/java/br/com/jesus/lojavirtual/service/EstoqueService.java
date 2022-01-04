@@ -1,6 +1,6 @@
 package br.com.jesus.lojavirtual.service;
 
-import br.com.jesus.lojavirtual.postgres.domain.Estoque;
+import br.com.jesus.lojavirtual.domain.entity.postgres.Estoque;
 
 import java.util.List;
 import java.util.Optional;

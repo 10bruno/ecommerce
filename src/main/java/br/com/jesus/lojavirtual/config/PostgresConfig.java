@@ -1,4 +1,4 @@
-package br.com.jesus.lojavirtual.postgres.config;
+package br.com.jesus.lojavirtual.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "postgresEntityManagerFactory",
         transactionManagerRef = "postgresTransactionManager",
-        basePackages = {"br.com.jesus.lojavirtual.postgres.repository"})
+        basePackages = {"br.com.jesus.lojavirtual.repository.postgres"})
 public class PostgresConfig {
 
     @Bean(name = "postgresDataSource")
@@ -34,7 +34,7 @@ public class PostgresConfig {
             EntityManagerFactoryBuilder builder, @Qualifier("postgresDataSource") DataSource postgresDataSource) {
         return builder
                 .dataSource(postgresDataSource)
-                .packages("br.com.jesus.lojavirtual.postgres.domain")
+                .packages("br.com.jesus.lojavirtual.domain.entity.postgres")
                 .persistenceUnit("cliente")
                 .persistenceUnit("estoque")
                 .persistenceUnit("produto")

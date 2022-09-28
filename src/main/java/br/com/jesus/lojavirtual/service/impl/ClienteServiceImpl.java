@@ -3,7 +3,6 @@ package br.com.jesus.lojavirtual.service.impl;
 import br.com.jesus.lojavirtual.domain.entity.postgres.Cliente;
 import br.com.jesus.lojavirtual.repository.postgres.ClienteRepository;
 import br.com.jesus.lojavirtual.service.ClienteService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
 public class ClienteServiceImpl implements ClienteService {
-
     private final ClienteRepository clienteRepository;
 
     @Autowired

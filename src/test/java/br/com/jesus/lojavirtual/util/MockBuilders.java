@@ -1,6 +1,6 @@
 package br.com.jesus.lojavirtual.util;
 
-import br.com.jesus.lojavirtual.mysql.domain.Historico;
+import br.com.jesus.lojavirtual.domain.entity.mysql.Historico;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

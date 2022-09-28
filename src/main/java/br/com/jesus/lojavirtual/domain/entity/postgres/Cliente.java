@@ -23,7 +23,7 @@ public class Cliente implements Serializable {
     @Id
     private String cpf;
     private String nome;
-    private String dt_nascimento;
+    private String dtNascimento;
     private String sexo;
 
     @Override

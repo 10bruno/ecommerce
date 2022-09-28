@@ -1,6 +1,6 @@
 package br.com.jesus.lojavirtual.controller;
 
-import br.com.jesus.lojavirtual.mysql.domain.Historico;
+import br.com.jesus.lojavirtual.domain.entity.mysql.Historico;
 import br.com.jesus.lojavirtual.service.HistoricoService;
 import br.com.jesus.lojavirtual.util.MockBuilders;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class HistoricoControllerTest {
+class HistoricoControllerTest {
 
     @InjectMocks
     private HistoricoController historicoController;
@@ -25,7 +25,7 @@ public class HistoricoControllerTest {
     private HistoricoService historicoService;
 
     @Test
-    public void deveRecuperarUmHistoricoDoBanco() {
+    void deveRecuperarUmHistoricoDoBanco() {
         Historico historico = MockBuilders.buildHistorico();
         when(this.historicoService.recuperaUmHistorico(historico.getId())).thenReturn(Optional.of(historico));
 
@@ -35,7 +35,7 @@ public class HistoricoControllerTest {
     }
 
     @Test
-    public void deveRecuperarUmaListaDeHistoricosDoBanco() {
+    void deveRecuperarUmaListaDeHistoricosDoBanco() {
         List<Historico> historicoList = MockBuilders.buildListHistorico();
         when(this.historicoService.recuperaListaHistoricos()).thenReturn(historicoList);
 
@@ -46,7 +46,7 @@ public class HistoricoControllerTest {
     }
 
     @Test
-    public void deveAlterarUmElementoDeUmHistoricoNoBanco() {
+    void deveAlterarUmElementoDeUmHistoricoNoBanco() {
         Historico historico = MockBuilders.buildHistorico();
         when(this.historicoService.criaAtualizaHistorico(historico)).thenReturn(historico);
 
@@ -56,7 +56,7 @@ public class HistoricoControllerTest {
     }
 
     @Test
-    public void deveCriarUmNovoHistoricoNoBanco() {
+    void deveCriarUmNovoHistoricoNoBanco() {
         Historico historico = MockBuilders.buildHistorico();
         when(this.historicoService.criaAtualizaHistorico(historico)).thenReturn(historico);
 
@@ -66,7 +66,7 @@ public class HistoricoControllerTest {
     }
 
     @Test
-    public void deveDeletarUmHistoricoNoBanco() {
+    void deveDeletarUmHistoricoNoBanco() {
         Historico historico = MockBuilders.buildHistorico();
         doNothing().when(this.historicoService).deletaHistorico(historico.getId());
 

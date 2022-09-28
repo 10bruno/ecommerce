@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HistoricoService {
-    Optional<Historico> recuperaUmHistorico(String id);
+    Optional<Historico> recuperaUmHistorico(Integer id);
 
     List<Historico> recuperaListaHistoricos();
 
     Historico criaAtualizaHistorico(Historico historico);
 
-    void deletaHistorico(String id);
+    void deletaHistorico(Integer id);
 }

@@ -10,14 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
+
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
+@Entity
 @Table(name = "historico_pagamentos")
 public class Historico implements Serializable {
 
@@ -25,7 +26,7 @@ public class Historico implements Serializable {
     private Integer id;
     private String descricao;
     private String tipo;
-    private Date data;
+    private LocalDate data;
 
     @Override
     public boolean equals(Object o) {

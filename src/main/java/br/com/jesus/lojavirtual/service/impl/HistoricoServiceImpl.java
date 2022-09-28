@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ public class HistoricoServiceImpl implements HistoricoService {
     }
 
     @Override
-    public Optional<Historico> recuperaUmHistorico(String id) {
+    public Optional<Historico> recuperaUmHistorico(Integer id) {
         return this.historicoRepository.findById(id);
     }
 
@@ -33,12 +34,12 @@ public class HistoricoServiceImpl implements HistoricoService {
 
     @Override
     public Historico criaAtualizaHistorico(Historico historico) {
+        historico.setData(LocalDate.now());
         return this.historicoRepository.save(historico);
     }
 
     @Override
-    public void deletaHistorico(String id) {
-        this.historicoRepository.deleteById(id
-        );
+    public void deletaHistorico(Integer id) {
+        this.historicoRepository.deleteById(id);
     }
 }

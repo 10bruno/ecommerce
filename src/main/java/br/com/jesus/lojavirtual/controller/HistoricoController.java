@@ -22,7 +22,7 @@ public class HistoricoController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Historico> getUmHistorico(@PathVariable String id) {
+    public Optional<Historico> getUmHistorico(@PathVariable Integer id) {
         log.info("GET - Pesquisando um historico especifico {}", id);
         return this.historicoService.recuperaUmHistorico(id);
     }
@@ -46,7 +46,7 @@ public class HistoricoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUmHistorico(@PathVariable String id) {
+    public void deleteUmHistorico(@PathVariable Integer id) {
         log.info("DELETE - Deleta um historico {}", id);
         this.historicoService.deletaHistorico(id);
     }

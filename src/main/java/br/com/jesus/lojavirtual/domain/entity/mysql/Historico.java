@@ -1,4 +1,4 @@
-package br.com.jesus.lojavirtual.mysql.domain;
+package br.com.jesus.lojavirtual.domain.entity.mysql;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

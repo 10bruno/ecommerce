@@ -1,7 +1,7 @@
 package br.com.jesus.lojavirtual.service.impl;
 
-import br.com.jesus.lojavirtual.postgres.domain.Cliente;
-import br.com.jesus.lojavirtual.postgres.repository.ClienteRepository;
+import br.com.jesus.lojavirtual.domain.entity.postgres.Cliente;
+import br.com.jesus.lojavirtual.repository.postgres.ClienteRepository;
 import br.com.jesus.lojavirtual.service.ClienteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

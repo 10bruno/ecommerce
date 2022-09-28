@@ -1,7 +1,6 @@
 package br.com.jesus.lojavirtual.service;
 
-import br.com.jesus.lojavirtual.mysql.domain.Historico;
-import br.com.jesus.lojavirtual.postgres.domain.Produto;
+import br.com.jesus.lojavirtual.domain.entity.mysql.Historico;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package br.com.jesus.lojavirtual.postgres.domain;
+package br.com.jesus.lojavirtual.domain.entity.postgres;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -5,8 +5,6 @@ spring:
     properties:
       hibernate:
         ddl-auto: validate
-        hbm2ddl:
-          import_files:
 
 postgres:
   datasource:
@@ -21,3 +19,19 @@ mysql:
     username: root
     password: Jj347189#
     driverClassName: com.mysql.cj.jdbc.Driver
+
+param:
+  example:
+    sequence: M, 00, B, J, A
+    list:
+      M
+      00
+      B
+      J
+      A
+
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+    doc-expansion: none
+    operations-sorter: alpha

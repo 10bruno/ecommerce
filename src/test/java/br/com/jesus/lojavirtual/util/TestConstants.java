@@ -1,6 +1,6 @@
 package br.com.jesus.lojavirtual.util;
 
-import br.com.jesus.lojavirtual.mysql.domain.TipoPagamento;
+import br.com.jesus.lojavirtual.domain.enumerated.TipoPagamento;
 
 public class TestConstants {
     public static final Integer id1 = 1;

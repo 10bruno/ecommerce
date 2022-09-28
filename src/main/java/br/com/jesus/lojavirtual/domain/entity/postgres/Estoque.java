@@ -27,7 +27,6 @@ public class Estoque implements Serializable {
     private BigDecimal qtdReservado;
     private String codigoProduto;
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

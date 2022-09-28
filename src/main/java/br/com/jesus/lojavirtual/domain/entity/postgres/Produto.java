@@ -1,6 +1,7 @@
 package br.com.jesus.lojavirtual.domain.entity.postgres;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 @Table(name = "produto")
 public class Produto implements Serializable {
 
@@ -41,6 +43,4 @@ public class Produto implements Serializable {
         return 0;
     }
 
-    public Produto() {
-    }
 }

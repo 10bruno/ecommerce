@@ -7,8 +7,8 @@ Conexão com PostgreSQL e MySql.
 # Atualizações: 
 
 Java 17
-
 Gradle 7.5.1
+OpenApiDoc
 
 ----------------------------------------------------------------    
 
@@ -16,6 +16,5 @@ Melhorias
 
 * Alterar objetos de entrada do Controller para DTO/Request
 * Criar camada de adapter
-* Atualizar Swagger para OpenApiDoc
 * Finalizar testes unitários
 * Criar Docker para mysql local

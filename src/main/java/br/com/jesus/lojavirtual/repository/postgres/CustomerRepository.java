@@ -1,9 +1,9 @@
 package br.com.jesus.lojavirtual.repository.postgres;
 
-import br.com.jesus.lojavirtual.domain.entity.postgres.Cliente;
+import br.com.jesus.lojavirtual.domain.entity.postgres.CustomerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, String> {
+public interface CustomerRepository extends JpaRepository<CustomerEntity, String> {
 }

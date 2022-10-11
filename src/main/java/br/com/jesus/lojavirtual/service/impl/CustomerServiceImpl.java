@@ -19,9 +19,8 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
-
-    private final CustomerEntityToResponseAdapter customerEntityToResponseAdapter;
     private final CustomerRequestToCustomerEntityAdapter customerRequestToCustomerEntityAdapter;
+    private final CustomerEntityToResponseAdapter customerEntityToResponseAdapter;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository, CustomerEntityToResponseAdapter customerEntityToResponseAdapter, CustomerRequestToCustomerEntityAdapter customerRequestToCustomerEntityAdapter) {
@@ -49,12 +48,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse createCustomer(CustomerRequest customer) throws CustomerCreateException {
+    public CustomerResponse createOrUpdateCustomer(CustomerRequest customer) throws CustomerCreateException {
         CustomerEntity customerEntity = customerRequestToCustomerEntityAdapter.getCustomerEntity(customer);
 
         CustomerEntity customerEntitySaved =
                 Optional.of(this.customerRepository.save(customerEntity))
-                        .orElseThrow(() -> new CustomerCreateException(MessageEnum.CUSTOMER_ERROR_ON_CREATE.getValue()));
+                        .orElseThrow(() -> new CustomerCreateException(MessageEnum.CUSTOMER_ERROR_ON_CREATE_EXCEPTION.getValue()));
 
         return customerEntityToResponseAdapter.getCustomerResponse(customerEntitySaved);
     }

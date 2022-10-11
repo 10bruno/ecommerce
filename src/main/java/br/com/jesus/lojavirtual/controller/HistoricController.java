@@ -1,11 +1,12 @@
 package br.com.jesus.lojavirtual.controller;
 
-import br.com.jesus.lojavirtual.controller.request.CustomerRequest;
+import br.com.jesus.lojavirtual.controller.request.HistoricRequest;
 import br.com.jesus.lojavirtual.controller.response.CustomerResponse;
-import br.com.jesus.lojavirtual.controller.response.exception.CustomerCreateException;
-import br.com.jesus.lojavirtual.controller.response.exception.CustomerNotFoundException;
+import br.com.jesus.lojavirtual.controller.response.HistoricResponse;
+import br.com.jesus.lojavirtual.controller.response.exception.HistoricCreateException;
+import br.com.jesus.lojavirtual.controller.response.exception.HistoricNotFoundException;
 import br.com.jesus.lojavirtual.controller.response.handler.ErrorResponse;
-import br.com.jesus.lojavirtual.service.CustomerService;
+import br.com.jesus.lojavirtual.service.HistoricService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,30 +21,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lojavirtual/customer")
-@Tag(name = "Customer", description = "CRUD of the customer service.")
+@RequestMapping("/lojavirtual/historic")
+@Tag(name = "Historic", description = "CRUD of the historic service.")
 @Slf4j
-public class CustomerController {
+public class HistoricController {
 
-    private final CustomerService customerService;
+    private final HistoricService historicService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public HistoricController(HistoricService historicService) {
+        this.historicService = historicService;
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/{id}")
     @Operation(
             method = "GET",
-            summary = "Retrieve a customer by cpf",
-            tags = {"Customer"},
+            summary = "Retrieve a historic by id",
+            tags = {"Historic"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = HistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Not Found",
                             responseCode = "404",
@@ -54,16 +55,16 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse retrieveCustomer(@PathVariable String cpf) throws CustomerNotFoundException {
-        log.info("GET - Searching for a specific customer cpf {}.", cpf);
-        return this.customerService.retrieveCustomer(cpf);
+    public HistoricResponse retrieveHistoric(@PathVariable Integer id) throws HistoricNotFoundException {
+        log.info("GET - Searching for a specific historic id {}.", id);
+        return this.historicService.retrieveHistoric(id);
     }
 
     @GetMapping()
     @Operation(
             method = "GET",
-            summary = "Retrieve a list of customers",
-            tags = {"Customer"},
+            summary = "Retrieve a list of historics",
+            tags = {"Historic"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
@@ -71,7 +72,7 @@ public class CustomerController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
                                             schema = @Schema(
-                                                    implementation = CustomerResponse.class
+                                                    implementation = HistoricResponse.class
                                             )))),
                     @ApiResponse(description = "Not Found",
                             responseCode = "404",
@@ -82,23 +83,23 @@ public class CustomerController {
                                     )))
             }
     )
-    public List<CustomerResponse> retrieveListCustomers() throws CustomerNotFoundException {
-        log.info("GET - Searching all customers.");
-        return this.customerService.retrieveListCustomers();
+    public List<HistoricResponse> retrieveListHistorics() throws HistoricNotFoundException {
+        log.info("GET - Searching all historics.");
+        return this.historicService.retrieveListHistorics();
     }
 
     @PutMapping()
     @Operation(
             method = "PUT",
-            summary = "Update specific customer information",
-            tags = {"Customer"},
+            summary = "Update specific historic information",
+            tags = {"Historic"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = HistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -109,23 +110,23 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse updateCustomer(@RequestBody CustomerRequest customer) throws CustomerCreateException {
-        log.info("PUT - Update specific customer information {}", customer);
-        return this.customerService.createOrUpdateCustomer(customer);
+    public HistoricResponse updateHistoric(@RequestBody HistoricRequest historicRequest) throws HistoricCreateException {
+        log.info("PUT - Update specific historic information {}", historicRequest);
+        return this.historicService.createOrUpdateHistoric(historicRequest);
     }
 
     @PostMapping()
     @Operation(
             method = "POST",
-            summary = "Create a customer",
-            tags = {"Customer"},
+            summary = "Create a historic",
+            tags = {"Historic"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = HistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -136,23 +137,23 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse createOrUpdateCustomer(@RequestBody CustomerRequest customer) throws CustomerCreateException {
-        log.info("POST - Create a customer {}", customer);
-        return this.customerService.createOrUpdateCustomer(customer);
+    public HistoricResponse createOrUpdateHistoric(@RequestBody HistoricRequest historicRequest) throws HistoricCreateException {
+        log.info("POST - Create a historic {}", historicRequest);
+        return this.historicService.createOrUpdateHistoric(historicRequest);
     }
 
-    @DeleteMapping("/{cpf}")
+    @DeleteMapping("/{id}")
     @Operation(
             method = "DELETE",
-            summary = "Delete a customer",
-            tags = {"Customer"},
+            summary = "Delete a historic",
+            tags = {"Historic"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = HistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -163,8 +164,9 @@ public class CustomerController {
                                     )))
             }
     )
-    public void deleteCustomer(@PathVariable String cpf) {
-        log.info("DELETE - Delete a customer cpf {}", cpf);
-        this.customerService.deleteCustomer(cpf);
+    public void deleteHistoric(@PathVariable Integer id) {
+        log.info("DELETE - Delete a historic {}", id);
+        this.historicService.deleteHistoric(id);
     }
+
 }

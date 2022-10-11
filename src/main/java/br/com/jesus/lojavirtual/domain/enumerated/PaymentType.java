@@ -1,5 +1,5 @@
 package br.com.jesus.lojavirtual.domain.enumerated;
 
-public enum TipoPagamento {
-    DEBITO,CREDITO
+public enum PaymentType {
+    DEBIT, CREDIT
 }

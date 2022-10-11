@@ -1,13 +1,13 @@
 package br.com.jesus.lojavirtual.util;
 
-import br.com.jesus.lojavirtual.domain.enumerated.TipoPagamento;
+import br.com.jesus.lojavirtual.domain.enumerated.PaymentType;
 
 public class TestConstants {
-    public static final Integer id1 = 1;
-    public static final Integer id2 = 2;
-    public static final String descricaoTotal = "pagamento total";
-    public static final String descricaoParcial = "pagamento parcial";
-    public static final String tipoDebito = TipoPagamento.DEBITO.name();
-    public static final String tipoCredito = TipoPagamento.CREDITO.name();
+    public static final Integer ID_1 = 1;
+    public static final Integer ID_2 = 2;
+    public static final String FULL_DESCRIPTION = "Total payment";
+    public static final String PARTIAL_DESCRIPTION = "Partial payment";
+    public static final String DEBIT_TYPE = PaymentType.DEBIT.name();
+    public static final String CREDIT_TYPE = PaymentType.CREDIT.name();
 
 }

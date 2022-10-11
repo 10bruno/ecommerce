@@ -7,9 +7,9 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class HistoricoResponse {
+public class HistoricResponse {
     private Integer id;
-    private String descricao;
-    private String tipo;
-    private LocalDate data;
+    private String description;
+    private String type;
+    private LocalDate date;
 }

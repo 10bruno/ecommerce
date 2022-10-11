@@ -1,7 +1,7 @@
 package br.com.jesus.lojavirtual.service.impl;
 
 import br.com.jesus.lojavirtual.domain.entity.postgres.Estoque;
-import br.com.jesus.lojavirtual.repository.postgres.EstoqueRepository;
+import br.com.jesus.lojavirtual.domain.repository.postgres.EstoqueRepository;
 import br.com.jesus.lojavirtual.service.EstoqueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

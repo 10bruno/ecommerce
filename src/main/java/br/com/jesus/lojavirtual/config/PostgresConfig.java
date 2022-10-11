@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "postgresEntityManagerFactory",
         transactionManagerRef = "postgresTransactionManager",
-        basePackages = {"br.com.jesus.lojavirtual.repository.postgres"})
+        basePackages = {"br.com.jesus.lojavirtual.domain.repository.postgres"})
 public class PostgresConfig {
 
     @Bean(name = "postgresDataSource")
@@ -35,9 +35,9 @@ public class PostgresConfig {
         return builder
                 .dataSource(postgresDataSource)
                 .packages("br.com.jesus.lojavirtual.domain.entity.postgres")
-                .persistenceUnit("cliente")
+                .persistenceUnit("customer")
                 .persistenceUnit("estoque")
-                .persistenceUnit("produto")
+                .persistenceUnit("product")
                 .build();
     }
 

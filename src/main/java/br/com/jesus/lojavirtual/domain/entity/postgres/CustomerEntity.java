@@ -15,7 +15,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cliente")
+@Table(name = "customer")
 public class CustomerEntity implements Serializable {
 
     @Id

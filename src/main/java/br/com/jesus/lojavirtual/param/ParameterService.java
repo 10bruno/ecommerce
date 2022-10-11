@@ -28,7 +28,7 @@ public class ParameterService {
 
     public void getSequenceParameter() {
         List<String> paramSequence = Arrays.stream(paramConfig.getSequence()).toList();
-        log.info("GET - Pesquisando sequencia parametros");
+        log.info("GET - Searching sequence of parameter.");
         log.info("<----------------------------------------------------------------");
         log.info("Parameter of TestConfig {} ", paramSequence);
         log.info("Parameter of @Value {} ", (Object) sequence);
@@ -37,7 +37,7 @@ public class ParameterService {
 
     public void getListParameter() {
         List<String> paramList = paramConfig.getList();
-        log.info("GET - Pesquisando lista parametros");
+        log.info("GET - Searching list of parameters.");
         log.info("<----------------------------------------------------------------");
         log.info("Parameter of TestConfig {} ", paramList);
         log.info("Parameter of @Value {} ", list);

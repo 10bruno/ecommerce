@@ -1,9 +1,6 @@
 package br.com.jesus.lojavirtual.domain.entity.postgres;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
@@ -17,22 +14,23 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@Table(name = "estoque")
-public class Estoque implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "inventory")
+public class InventoryEntity implements Serializable {
 
     @Id
-    private Integer idEstoque;
-    private BigDecimal qtdDisponivel;
-    private BigDecimal qtdReservado;
-    private String codigoProduto;
+    private Integer id;
+    private BigDecimal availableQuantity;
+    private BigDecimal reservedQuantity;
+    private String productCode;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Estoque estoque = (Estoque) o;
-        return Objects.equals(idEstoque, estoque.idEstoque);
+        InventoryEntity inventoryEntity = (InventoryEntity) o;
+        return Objects.equals(id, inventoryEntity.id);
     }
 
     @Override

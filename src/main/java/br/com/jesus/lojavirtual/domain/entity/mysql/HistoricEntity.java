@@ -1,9 +1,6 @@
 package br.com.jesus.lojavirtual.domain.entity.mysql;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
@@ -14,26 +11,27 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 
+@Entity
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
-@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "historico_pagamentos")
-public class Historico implements Serializable {
+public class HistoricEntity implements Serializable {
 
     @Id
     private Integer id;
-    private String descricao;
-    private String tipo;
-    private LocalDate data;
+    private String description;
+    private String type;
+    private LocalDate date;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Historico historico = (Historico) o;
-        return Objects.equals(id, historico.id);
+        HistoricEntity historicEntity = (HistoricEntity) o;
+        return Objects.equals(id, historicEntity.id);
     }
 
     @Override

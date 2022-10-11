@@ -1,6 +1,6 @@
 # Projeto loja-virtual
 
-Projeto criado para estudo e tem como objetivo ser uma api REST com pontos específicos abaixo:
+Projeto criado para estudo e tem como objetivo ser uma api REST de um CRUD:
 
 
 ### Objetivos:

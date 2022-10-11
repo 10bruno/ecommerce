@@ -36,7 +36,7 @@ public class PostgresConfig {
                 .dataSource(postgresDataSource)
                 .packages("br.com.jesus.lojavirtual.domain.entity.postgres")
                 .persistenceUnit("customer")
-                .persistenceUnit("estoque")
+                .persistenceUnit("inventory")
                 .persistenceUnit("product")
                 .build();
     }

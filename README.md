@@ -30,7 +30,7 @@ Project created for study and aims to be a REST api of a CRUD:
 |Finish unit tests|:black_square_button:|
 |Create a local Docker for Mysql|:black_square_button:|
 |Include on Controller information of OpenApiDoc|:heavy_check_mark:|
-|Translate project do English|:heavy_check_mark:|
+|Translate project to English|:heavy_check_mark:|
 
 ---
 

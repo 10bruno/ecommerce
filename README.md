@@ -20,3 +20,5 @@ Melhorias
 * Criar camada de adapter
 * Finalizar testes unitários
 * Criar Docker para mysql local
+* Incluir no controller informações par ao swagger 
+* Alterar projeto para inglês

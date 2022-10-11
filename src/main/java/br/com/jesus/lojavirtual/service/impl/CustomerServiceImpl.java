@@ -8,7 +8,7 @@ import br.com.jesus.lojavirtual.controller.response.exception.CustomerCreateExce
 import br.com.jesus.lojavirtual.controller.response.exception.CustomerNotFoundException;
 import br.com.jesus.lojavirtual.domain.entity.postgres.CustomerEntity;
 import br.com.jesus.lojavirtual.enumerated.MessageEnum;
-import br.com.jesus.lojavirtual.repository.postgres.CustomerRepository;
+import br.com.jesus.lojavirtual.domain.repository.postgres.CustomerRepository;
 import br.com.jesus.lojavirtual.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,8 +48,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse createOrUpdateCustomer(CustomerRequest customer) throws CustomerCreateException {
-        CustomerEntity customerEntity = customerRequestToCustomerEntityAdapter.getCustomerEntity(customer);
+    public CustomerResponse createOrUpdateCustomer(CustomerRequest customerRequest) throws CustomerCreateException {
+        CustomerEntity customerEntity = customerRequestToCustomerEntityAdapter.getCustomerEntity(customerRequest);
 
         CustomerEntity customerEntitySaved =
                 Optional.of(this.customerRepository.save(customerEntity))

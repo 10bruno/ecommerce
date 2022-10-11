@@ -1,11 +1,12 @@
 package br.com.jesus.lojavirtual.controller;
 
-import br.com.jesus.lojavirtual.controller.request.CustomerRequest;
-import br.com.jesus.lojavirtual.controller.response.CustomerResponse;
-import br.com.jesus.lojavirtual.controller.response.exception.CustomerCreateException;
+import br.com.jesus.lojavirtual.controller.request.ProductRequest;
+import br.com.jesus.lojavirtual.controller.response.ProductResponse;
 import br.com.jesus.lojavirtual.controller.response.exception.CustomerNotFoundException;
+import br.com.jesus.lojavirtual.controller.response.exception.ProductCreateException;
+import br.com.jesus.lojavirtual.controller.response.exception.ProductNotFoundException;
 import br.com.jesus.lojavirtual.controller.response.handler.ErrorResponse;
-import br.com.jesus.lojavirtual.service.CustomerService;
+import br.com.jesus.lojavirtual.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,30 +21,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lojavirtual/customer")
-@Tag(name = "Customer", description = "CRUD of the customer service.")
+@RequestMapping("/lojavirtual/product")
+@Tag(name = "Product", description = "CRUD of the product service.")
 @Slf4j
-public class CustomerController {
+public class ProductController {
 
-    private final CustomerService customerService;
+    private final ProductService productService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/{id}")
     @Operation(
             method = "GET",
-            summary = "Retrieve a customer by cpf",
-            tags = {"Customer"},
+            summary = "Retrieve a product by id",
+            tags = {"Product"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = ProductResponse.class
                                     ))),
                     @ApiResponse(description = "Not Found",
                             responseCode = "404",
@@ -54,16 +55,16 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse retrieveCustomer(@PathVariable String cpf) throws CustomerNotFoundException {
-        log.info("GET - Searching for a specific customer cpf {}.", cpf);
-        return this.customerService.retrieveCustomer(cpf);
+    public ProductResponse retrieveProduct(@PathVariable String id) throws ProductNotFoundException {
+        log.info("GET - Searching for a specific product id {}.", id);
+        return this.productService.retrieveProduct(id);
     }
 
     @GetMapping()
     @Operation(
             method = "GET",
-            summary = "Retrieve a list of customers",
-            tags = {"Customer"},
+            summary = "Retrieve a list of products",
+            tags = {"Product"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
@@ -71,7 +72,7 @@ public class CustomerController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
                                             schema = @Schema(
-                                                    implementation = CustomerResponse.class
+                                                    implementation = ProductResponse.class
                                             )))),
                     @ApiResponse(description = "Not Found",
                             responseCode = "404",
@@ -82,23 +83,23 @@ public class CustomerController {
                                     )))
             }
     )
-    public List<CustomerResponse> retrieveListCustomers() throws CustomerNotFoundException {
-        log.info("GET - Searching all customers.");
-        return this.customerService.retrieveListCustomers();
+    public List<ProductResponse> retrieveListProducts() throws CustomerNotFoundException {
+        log.info("GET - Searching all products.");
+        return this.productService.retrieveListProducts();
     }
 
     @PutMapping()
     @Operation(
             method = "PUT",
-            summary = "Update specific customer information",
-            tags = {"Customer"},
+            summary = "Update specific product information",
+            tags = {"Product"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = ProductResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -109,23 +110,23 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse updateCustomer(@RequestBody CustomerRequest customer) throws CustomerCreateException {
-        log.info("PUT - Update specific customer information {}.", customer);
-        return this.customerService.createOrUpdateCustomer(customer);
+    public ProductResponse updateProduct(@RequestBody ProductRequest productRequest) throws ProductCreateException {
+        log.info("PUT - Update specific product information {}.", productRequest);
+        return this.productService.createOrUpdateProduct(productRequest);
     }
 
     @PostMapping()
     @Operation(
             method = "POST",
-            summary = "Create a customer",
-            tags = {"Customer"},
+            summary = "Create a product",
+            tags = {"Product"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = ProductResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -136,23 +137,23 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse createOrUpdateCustomer(@RequestBody CustomerRequest customer) throws CustomerCreateException {
-        log.info("POST - Create a customer {}.", customer);
-        return this.customerService.createOrUpdateCustomer(customer);
+    public ProductResponse createOrUpdateProduct(@RequestBody ProductRequest productRequest) throws ProductCreateException {
+        log.info("POST - Create a product {}.", productRequest);
+        return this.productService.createOrUpdateProduct(productRequest);
     }
 
-    @DeleteMapping("/{cpf}")
+    @DeleteMapping("/{id}")
     @Operation(
             method = "DELETE",
-            summary = "Delete a customer",
-            tags = {"Customer"},
+            summary = "Delete a product",
+            tags = {"Product"},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = CustomerResponse.class
+                                            implementation = ProductResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -163,8 +164,9 @@ public class CustomerController {
                                     )))
             }
     )
-    public void deleteCustomer(@PathVariable String cpf) {
-        log.info("DELETE - Delete a customer cpf {}.", cpf);
-        this.customerService.deleteCustomer(cpf);
+    public void deleteProduct(@PathVariable String id) {
+        log.info("DELETE - Delete a product {}.", id);
+        this.productService.deleteProduct(id);
     }
+
 }

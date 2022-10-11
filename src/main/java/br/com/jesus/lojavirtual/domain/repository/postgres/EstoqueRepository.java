@@ -1,4 +1,4 @@
-package br.com.jesus.lojavirtual.repository.postgres;
+package br.com.jesus.lojavirtual.domain.repository.postgres;
 
 import br.com.jesus.lojavirtual.domain.entity.postgres.Estoque;
 import org.springframework.data.jpa.repository.JpaRepository;

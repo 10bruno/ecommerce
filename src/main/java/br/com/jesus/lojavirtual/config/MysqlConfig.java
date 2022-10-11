@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"br.com.jesus.lojavirtual.repository.mysql"})
+        basePackages = {"br.com.jesus.lojavirtual.domain.repository.mysql"})
 public class MysqlConfig {
 
     @Primary
@@ -35,7 +35,7 @@ public class MysqlConfig {
         return builder
                 .dataSource(dataSource)
                 .packages("br.com.jesus.lojavirtual.domain.entity.mysql")
-                .persistenceUnit("historico_pagamentos")
+                .persistenceUnit("payment_historic")
                 .build();
     }
 

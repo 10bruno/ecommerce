@@ -8,7 +8,7 @@ import br.com.jesus.lojavirtual.controller.response.exception.HistoricCreateExce
 import br.com.jesus.lojavirtual.controller.response.exception.HistoricNotFoundException;
 import br.com.jesus.lojavirtual.domain.entity.mysql.HistoricEntity;
 import br.com.jesus.lojavirtual.enumerated.MessageEnum;
-import br.com.jesus.lojavirtual.repository.mysql.HistoricRepository;
+import br.com.jesus.lojavirtual.domain.repository.mysql.HistoricRepository;
 import br.com.jesus.lojavirtual.service.HistoricService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -17,7 +17,7 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "historico_pagamentos")
+@Table(name = "payment_historic")
 public class HistoricEntity implements Serializable {
 
     @Id

@@ -1,42 +1,39 @@
-# Projeto loja-virtual
+# Project "loja-virtual"
 
-Projeto criado para estudo e tem como objetivo ser uma api REST de um CRUD:
+Project created for study and aims to be a REST api of a CRUD:
 
+---
 
-### Objetivos:
+### Objectives:
 
-* Projeto gradle
-* Criação e uso de duas conexões de banco simultâneas.
-* Conexão com PostgreSQL e MySql.
-* Parametrização via application.yml
-* Uso de adapters
+* Gradle project
+* Creating and using two simultaneous database connections
+* Connecting with PostgreSQL and MySql.
+* Parameterization with application.yml
+* Use of adapters
 * Optional
-* Lançamento de exceções específicas
+* Throwing specific exceptions
 * Interfaces
 * OpenApiDoc
 * CRUD
 
-----------------------------------------------------------------
+---
 
-### Atualizações: 
+### Upgrade Plan
+|Description|Check?|
+|---|---|
+|Upgrade Java version to 17|:heavy_check_mark:|
+|Upgrade Gradle version to 7.5.1|:heavy_check_mark:|
+|Upgrade Swagger 2.9 to OpenApiDoc 3.0|:heavy_check_mark:|
+|Change Controller Input Objects to DTO/Request|:heavy_check_mark:|
+|Create adapter layer|:heavy_check_mark:|
+|Finish unit tests|:black_square_button:|
+|Create a local Docker for Mysql|:black_square_button:|
+|Include on Controller information of OpenApiDoc|:heavy_check_mark:|
+|Translate project do English|:heavy_check_mark:|
 
-* Java 17
-* Gradle 7.5.1
-* OpenApiDoc 3.0
+---
 
-----------------------------------------------------------------
-
-### Melhorias futuras
-
-* Alterar objetos de entrada do Controller para DTO/Request
-* Criar camada de adapter
-* Finalizar testes unitários
-* Criar Docker para mysql local
-* Incluir no controller informações par ao swagger 
-* Alterar projeto para inglês
-
-----------------------------------------------------------------
-
-### Execução local
+### Local execution
 
 * Url Swagger = http://localhost:8080/swagger-ui/index.html#/

@@ -31,7 +31,7 @@ Project created for study and aims to be a REST api of a CRUD:
 |Create a local Docker for Mysql|:black_square_button:|
 |Include on Controller information of OpenApiDoc|:heavy_check_mark:|
 |Translate project to English|:heavy_check_mark:|
-|Change name project to "ecommerce"|:heavy_check_mark:|
+|Change project name to "ecommerce"|:heavy_check_mark:|
 
 ---
 

@@ -1,4 +1,4 @@
-# Project "ecommerce"
+# Project "e-commerce"
 
 Project created for study and aims to be a REST api of a CRUD:
 

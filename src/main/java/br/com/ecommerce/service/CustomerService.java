@@ -2,6 +2,7 @@ package br.com.ecommerce.service;
 
 import br.com.ecommerce.controller.response.CustomerResponse;
 import br.com.ecommerce.controller.response.exception.CustomerCreateException;
+import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
 import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
 import br.com.ecommerce.controller.request.CustomerRequest;
 
@@ -14,5 +15,5 @@ public interface CustomerService {
 
     CustomerResponse createOrUpdateCustomer(CustomerRequest customer) throws CustomerCreateException;
 
-    void deleteCustomer(String cpf);
+    void deleteCustomer(String cpf) throws CustomerDeleteException;
 }

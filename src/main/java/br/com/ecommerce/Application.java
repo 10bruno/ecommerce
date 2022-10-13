@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@OpenAPIDefinition(info = @Info(title = "CRUD of api REST [loja-virtual]"))
+@OpenAPIDefinition(info = @Info(title = "CRUD of api REST [ecommerce]"))
 public class Application {
 
     public static void main(String[] args) {

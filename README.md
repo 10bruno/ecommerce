@@ -37,4 +37,9 @@ Project created for study and aims to be a REST api of a CRUD:
 
 ### Local execution
 
-* Url Swagger = http://localhost:8080/swagger-ui/index.html#/
+* Url Swagger = http://localhost:8080/ecommerce/swagger-ui/index.html#/
+
+
+### References
+
+* https://springdoc.org/#swagger-ui-properties

@@ -1,6 +1,6 @@
-package br.com.ecommerce.param;
+package br.com.ecommerce.parameter;
 
-import br.com.ecommerce.config.ParamConfig;
+import br.com.ecommerce.config.ParameterConfig;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,21 +13,21 @@ import java.util.List;
 @Log4j2
 public class ParameterService {
 
-    @Value("${param.example.sequence}")
+    @Value("${parameter.example.sequence}")
     private String[] sequence;
 
-    @Value("${param.example.list}")
+    @Value("${parameter.example.list}")
     private List<String> list;
 
-    private final ParamConfig paramConfig;
+    private final ParameterConfig parameterConfig;
 
     @Autowired
-    public ParameterService(ParamConfig paramConfig) {
-        this.paramConfig = paramConfig;
+    public ParameterService(ParameterConfig parameterConfig) {
+        this.parameterConfig = parameterConfig;
     }
 
     public void getSequenceParameter() {
-        List<String> paramSequence = Arrays.stream(paramConfig.getSequence()).toList();
+        List<String> paramSequence = Arrays.stream(parameterConfig.getSequence()).toList();
         log.info("GET - Searching sequence of parameter.");
         log.info("<----------------------------------------------------------------");
         log.info("Parameter of TestConfig {} ", paramSequence);
@@ -36,7 +36,7 @@ public class ParameterService {
     }
 
     public void getListParameter() {
-        List<String> paramList = paramConfig.getList();
+        List<String> paramList = parameterConfig.getList();
         log.info("GET - Searching list of parameters.");
         log.info("<----------------------------------------------------------------");
         log.info("Parameter of TestConfig {} ", paramList);

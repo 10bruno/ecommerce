@@ -2,19 +2,19 @@ package br.com.ecommerce.service.impl;
 
 import br.com.ecommerce.adapter.CustomerEntityToResponseAdapter;
 import br.com.ecommerce.adapter.CustomerRequestToCustomerEntityAdapter;
+import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
 import br.com.ecommerce.controller.response.exception.CustomerCreateException;
+import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
 import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.CustomerEntity;
 import br.com.ecommerce.domain.repository.postgres.CustomerRepository;
 import br.com.ecommerce.enumerated.MessageEnum;
-import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -40,9 +40,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerResponse> retrieveListCustomers() throws CustomerNotFoundException {
-        List<CustomerEntity> customerEntityList =
-                Optional.of(this.customerRepository.findAll())
-                        .orElseThrow(() -> new CustomerNotFoundException(MessageEnum.CUSTOMERS_LIST_NOT_FOUND_EXCEPTION.getValue()));
+        List<CustomerEntity> customerEntityList = this.customerRepository.findAll();
+        if (customerEntityList.isEmpty())
+            throw new CustomerNotFoundException(MessageEnum.CUSTOMERS_LIST_NOT_FOUND_EXCEPTION.getValue());
 
         return customerEntityToResponseAdapter.buildListCustomerResponse(customerEntityList);
     }
@@ -50,16 +50,20 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponse createOrUpdateCustomer(CustomerRequest customerRequest) throws CustomerCreateException {
         CustomerEntity customerEntity = customerRequestToCustomerEntityAdapter.getCustomerEntity(customerRequest);
-
-        CustomerEntity customerEntitySaved =
-                Optional.of(this.customerRepository.save(customerEntity))
-                        .orElseThrow(() -> new CustomerCreateException(MessageEnum.CUSTOMER_ERROR_ON_CREATE_EXCEPTION.getValue()));
-
-        return customerEntityToResponseAdapter.getCustomerResponse(customerEntitySaved);
+        try {
+            CustomerEntity customerEntitySaved = this.customerRepository.save(customerEntity);
+            return customerEntityToResponseAdapter.getCustomerResponse(customerEntitySaved);
+        } catch (Exception exception) {
+            throw new CustomerCreateException(MessageEnum.CUSTOMER_ERROR_ON_CREATE_EXCEPTION.getValue());
+        }
     }
 
     @Override
-    public void deleteCustomer(String cpf) {
-        this.customerRepository.deleteById(cpf);
+    public void deleteCustomer(String cpf) throws CustomerDeleteException {
+        try {
+            this.customerRepository.deleteById(cpf);
+        } catch (Exception exception) {
+            throw new CustomerDeleteException(MessageEnum.CUSTOMER_ERROR_ON_DELETE_EXCEPTION.getValue());
+        }
     }
 }

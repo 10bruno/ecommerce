@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ConfigurationProperties(prefix = "param.example")
-public class ParamConfig {
+@ConfigurationProperties(prefix = "parameter.example")
+public class ParameterConfig {
     private String[] sequence;
     private List<String> list;
 }

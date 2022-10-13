@@ -22,5 +22,4 @@ public class CustomerEntityToResponseAdapter {
                 .map(this::getCustomerResponse)
                 .toList();
     }
-
 }

@@ -4,6 +4,7 @@ import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
 import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
 import br.com.ecommerce.controller.response.exception.ProductCreateException;
+import br.com.ecommerce.controller.response.exception.ProductDeleteException;
 import br.com.ecommerce.controller.response.exception.ProductNotFoundException;
 import br.com.ecommerce.controller.response.handler.ErrorResponse;
 import br.com.ecommerce.service.ProductService;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lojavirtual/product")
+@RequestMapping("/product")
 @Tag(name = "Product", description = "CRUD of the product service.")
 @Slf4j
 public class ProductController {
@@ -55,7 +56,7 @@ public class ProductController {
                                     )))
             }
     )
-    public ProductResponse retrieveProduct(@PathVariable String id) throws ProductNotFoundException {
+    public ProductResponse retrieveProduct(@PathVariable Integer id) throws ProductNotFoundException {
         log.info("GET - Searching for a specific product id {}.", id);
         return this.productService.retrieveProduct(id);
     }
@@ -151,10 +152,7 @@ public class ProductController {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(
-                                            implementation = ProductResponse.class
-                                    ))),
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
                             content = @Content(
@@ -164,9 +162,8 @@ public class ProductController {
                                     )))
             }
     )
-    public void deleteProduct(@PathVariable String id) {
+    public void deleteProduct(@PathVariable Integer id) throws ProductDeleteException {
         log.info("DELETE - Delete a product {}.", id);
         this.productService.deleteProduct(id);
     }
-
 }

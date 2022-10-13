@@ -3,6 +3,7 @@ package br.com.ecommerce.controller;
 import br.com.ecommerce.controller.request.HistoricRequest;
 import br.com.ecommerce.controller.response.HistoricResponse;
 import br.com.ecommerce.controller.response.exception.HistoricCreateException;
+import br.com.ecommerce.controller.response.exception.HistoricDeleteException;
 import br.com.ecommerce.controller.response.exception.HistoricNotFoundException;
 import br.com.ecommerce.controller.response.handler.ErrorResponse;
 import br.com.ecommerce.service.HistoricService;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lojavirtual/historic")
+@RequestMapping("/historic")
 @Tag(name = "Historic", description = "CRUD of the historic service.")
 @Slf4j
 public class HistoricController {
@@ -150,10 +151,7 @@ public class HistoricController {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(
-                                            implementation = HistoricResponse.class
-                                    ))),
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
                             content = @Content(
@@ -163,9 +161,8 @@ public class HistoricController {
                                     )))
             }
     )
-    public void deleteHistoric(@PathVariable Integer id) {
+    public void deleteHistoric(@PathVariable Integer id) throws HistoricDeleteException {
         log.info("DELETE - Delete a historic {}", id);
         this.historicService.deleteHistoric(id);
     }
-
 }

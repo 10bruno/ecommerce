@@ -3,6 +3,7 @@ package br.com.ecommerce.controller;
 import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
 import br.com.ecommerce.controller.response.exception.CustomerCreateException;
+import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
 import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
 import br.com.ecommerce.controller.response.handler.ErrorResponse;
 import br.com.ecommerce.service.CustomerService;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lojavirtual/customer")
+@RequestMapping("/customer")
 @Tag(name = "Customer", description = "CRUD of the customer service.")
 @Slf4j
 public class CustomerController {
@@ -150,10 +151,7 @@ public class CustomerController {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(
-                                            implementation = CustomerResponse.class
-                                    ))),
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
                             content = @Content(
@@ -163,7 +161,7 @@ public class CustomerController {
                                     )))
             }
     )
-    public void deleteCustomer(@PathVariable String cpf) {
+    public void deleteCustomer(@PathVariable String cpf) throws CustomerDeleteException {
         log.info("DELETE - Delete a customer cpf {}.", cpf);
         this.customerService.deleteCustomer(cpf);
     }

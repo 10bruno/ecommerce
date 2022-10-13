@@ -20,7 +20,14 @@ mysql:
     password: Jj347189#
     driverClassName: com.mysql.cj.jdbc.Driver
 
-param:
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+    doc-expansion: none
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+parameter:
   example:
     sequence: M, 00, B, J, A
     list:
@@ -30,8 +37,6 @@ param:
       J
       A
 
-spring-doc:
-  swagger-ui:
-    path: /swagger-ui.html
-    doc-expansion: none
-    operations-sorter: alpha
+server:
+  servlet:
+    context-path: /ecommerce

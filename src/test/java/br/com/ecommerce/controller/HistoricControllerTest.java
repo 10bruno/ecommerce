@@ -1,5 +1,6 @@
 package br.com.ecommerce.controller;
 
+import br.com.ecommerce.controller.response.exception.HistoricDeleteException;
 import br.com.ecommerce.domain.entity.mysql.HistoricEntity;
 import br.com.ecommerce.service.HistoricService;
 import br.com.ecommerce.controller.request.HistoricRequest;
@@ -72,7 +73,7 @@ class HistoricControllerTest {
 
 
     @Test
-    void shouldDeleteHistoric() {
+    void shouldDeleteHistoric() throws HistoricDeleteException {
         HistoricEntity historicEntity = MockBuilders.buildHistoric();
         doNothing().when(this.historicService).deleteHistoric(historicEntity.getId());
 

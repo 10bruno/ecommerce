@@ -5,6 +5,7 @@ import br.com.ecommerce.adapter.InventoryRequestToInventoryEntityAdapter;
 import br.com.ecommerce.controller.request.InventoryRequest;
 import br.com.ecommerce.controller.response.InventoryResponse;
 import br.com.ecommerce.controller.response.exception.InventoryCreateException;
+import br.com.ecommerce.controller.response.exception.InventoryDeleteException;
 import br.com.ecommerce.controller.response.exception.InventoryNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.InventoryEntity;
 import br.com.ecommerce.domain.repository.postgres.InventoryRepository;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class InventoryServiceImpl implements InventoryService {
@@ -31,7 +31,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public InventoryResponse retrieveInventory(String id) throws InventoryNotFoundException {
+    public InventoryResponse retrieveInventory(Integer id) throws InventoryNotFoundException {
         InventoryEntity inventoryEntity =
                 inventoryRepository.findById(id)
                         .orElseThrow(() -> new InventoryNotFoundException(MessageEnum.INVENTORY_NOT_FOUND_EXCEPTION.getValue()));
@@ -41,9 +41,9 @@ public class InventoryServiceImpl implements InventoryService {
 
     @Override
     public List<InventoryResponse> retrieveListInventories() throws InventoryNotFoundException {
-        List<InventoryEntity> inventoryEntityList =
-                Optional.of(this.inventoryRepository.findAll())
-                        .orElseThrow(() -> new InventoryNotFoundException(MessageEnum.INVENTORY_NOT_FOUND_EXCEPTION.getValue()));
+        List<InventoryEntity> inventoryEntityList = this.inventoryRepository.findAll();
+        if (inventoryEntityList.isEmpty())
+            throw new InventoryNotFoundException(MessageEnum.INVENTORY_LIST_NOT_FOUND_EXCEPTION.getValue());
 
         return inventoryEntityToResponseAdapter.buildListInventoryResponse(inventoryEntityList);
     }
@@ -51,16 +51,20 @@ public class InventoryServiceImpl implements InventoryService {
     @Override
     public InventoryResponse createOrUpdateInventory(InventoryRequest inventoryRequest) throws InventoryCreateException {
         InventoryEntity inventoryEntity = inventoryRequestToInventoryEntityAdapter.getInventoryEntity(inventoryRequest);
-
-        InventoryEntity inventoryEntitySaved =
-                Optional.of(this.inventoryRepository.save(inventoryEntity))
-                        .orElseThrow(() -> new InventoryCreateException(MessageEnum.INVENTORY_ERROR_ON_CREATE_EXCEPTION.getValue()));
-
-        return inventoryEntityToResponseAdapter.getInventoryResponse(inventoryEntitySaved);
+        try {
+            InventoryEntity inventoryEntitySaved = this.inventoryRepository.save(inventoryEntity);
+            return inventoryEntityToResponseAdapter.getInventoryResponse(inventoryEntitySaved);
+        } catch (Exception exception) {
+            throw new InventoryCreateException(MessageEnum.INVENTORY_ERROR_ON_CREATE_EXCEPTION.getValue());
+        }
     }
 
     @Override
-    public void deleteInventory(String id) {
-        this.inventoryRepository.deleteById(id);
+    public void deleteInventory(Integer id) throws InventoryDeleteException {
+        try {
+            this.inventoryRepository.deleteById(id);
+        } catch (Exception exception) {
+            throw new InventoryDeleteException(MessageEnum.INVENTORY_ERROR_ON_DELETE_EXCEPTION.getValue());
+        }
     }
 }

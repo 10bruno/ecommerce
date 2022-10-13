@@ -3,6 +3,7 @@ package br.com.ecommerce.controller;
 import br.com.ecommerce.controller.request.InventoryRequest;
 import br.com.ecommerce.controller.response.InventoryResponse;
 import br.com.ecommerce.controller.response.exception.InventoryCreateException;
+import br.com.ecommerce.controller.response.exception.InventoryDeleteException;
 import br.com.ecommerce.controller.response.exception.InventoryNotFoundException;
 import br.com.ecommerce.controller.response.handler.ErrorResponse;
 import br.com.ecommerce.service.InventoryService;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/lojavirtual/inventory")
+@RequestMapping("/inventory")
 @Tag(name = "Inventory", description = "CRUD of the inventory service.")
 @Slf4j
 public class InventoryController {
@@ -54,7 +55,7 @@ public class InventoryController {
                                     )))
             }
     )
-    public InventoryResponse retrieveInventory(@PathVariable String id) throws InventoryNotFoundException {
+    public InventoryResponse retrieveInventory(@PathVariable Integer id) throws InventoryNotFoundException {
         log.info("GET - Searching for a specific inventory id {}.", id);
         return this.inventoryService.retrieveInventory(id);
     }
@@ -150,10 +151,7 @@ public class InventoryController {
                     @ApiResponse(description = "OK",
                             responseCode = "200",
                             content = @Content(
-                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(
-                                            implementation = InventoryResponse.class
-                                    ))),
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
                             content = @Content(
@@ -163,7 +161,7 @@ public class InventoryController {
                                     )))
             }
     )
-    public void deleteInventory(@PathVariable String id) {
+    public void deleteInventory(@PathVariable Integer id) throws InventoryDeleteException {
         log.info("DELETE - Delete a inventory {}.", id);
         this.inventoryService.deleteInventory(id);
     }

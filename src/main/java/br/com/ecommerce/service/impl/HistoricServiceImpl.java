@@ -2,20 +2,20 @@ package br.com.ecommerce.service.impl;
 
 import br.com.ecommerce.adapter.HistoricEntityToResponseAdapter;
 import br.com.ecommerce.adapter.HistoricRequestToHistoricEntityAdapter;
+import br.com.ecommerce.controller.request.HistoricRequest;
 import br.com.ecommerce.controller.response.HistoricResponse;
 import br.com.ecommerce.controller.response.exception.HistoricCreateException;
+import br.com.ecommerce.controller.response.exception.HistoricDeleteException;
 import br.com.ecommerce.controller.response.exception.HistoricNotFoundException;
 import br.com.ecommerce.domain.entity.mysql.HistoricEntity;
 import br.com.ecommerce.domain.repository.mysql.HistoricRepository;
 import br.com.ecommerce.enumerated.MessageEnum;
 import br.com.ecommerce.service.HistoricService;
-import br.com.ecommerce.controller.request.HistoricRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HistoricServiceImpl implements HistoricService {
@@ -42,10 +42,9 @@ public class HistoricServiceImpl implements HistoricService {
 
     @Override
     public List<HistoricResponse> retrieveListHistorics() throws HistoricNotFoundException {
-
-        List<HistoricEntity> historicEntityList =
-                Optional.of(historicRepository.findAll())
-                        .orElseThrow(() -> new HistoricNotFoundException(MessageEnum.HISTORIC_LIST_NOT_FOUND_EXCEPTION.getValue()));
+        List<HistoricEntity> historicEntityList = historicRepository.findAll();
+        if (historicEntityList.isEmpty())
+            throw new HistoricNotFoundException(MessageEnum.HISTORIC_LIST_NOT_FOUND_EXCEPTION.getValue());
 
         return historicEntityToResponseAdapter.buildListHistoricResponse(historicEntityList);
     }
@@ -55,15 +54,20 @@ public class HistoricServiceImpl implements HistoricService {
         historicRequest.setDate(LocalDate.now());
         HistoricEntity historicEntity = historicRequestToHistoricEntityAdapter.getHistoricEntity(historicRequest);
 
-        HistoricEntity historicEntitySaved =
-                Optional.of(this.historicRepository.save(historicEntity))
-                        .orElseThrow(() -> new HistoricCreateException(MessageEnum.HISTORIC_ERROR_ON_CREATE_EXCEPTION.getValue()));
-
-        return historicEntityToResponseAdapter.getHistoricResponse(historicEntitySaved);
+        try {
+            HistoricEntity historicEntitySaved = this.historicRepository.save(historicEntity);
+            return historicEntityToResponseAdapter.getHistoricResponse(historicEntitySaved);
+        } catch (Exception exception) {
+            throw new HistoricCreateException(MessageEnum.HISTORIC_ERROR_ON_CREATE_EXCEPTION.getValue());
+        }
     }
 
     @Override
-    public void deleteHistoric(Integer id) {
-        this.historicRepository.deleteById(id);
+    public void deleteHistoric(Integer id) throws HistoricDeleteException {
+        try {
+            this.historicRepository.deleteById(id);
+        } catch (Exception exception) {
+            throw new HistoricDeleteException(MessageEnum.HISTORIC_ERROR_ON_DELETE_EXCEPTION.getValue());
+        }
     }
 }

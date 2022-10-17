@@ -2,6 +2,7 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
+import br.com.ecommerce.controller.response.constant.ControllerConstant;
 import br.com.ecommerce.controller.response.exception.CustomerCreateException;
 import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
 import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
@@ -16,13 +17,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/customer")
-@Tag(name = "Customer", description = "CRUD of the customer service.")
+@Tag(name = ControllerConstant.CUSTOMER, description = "CRUD of the customer service.")
 @Slf4j
 public class CustomerController {
 
@@ -37,10 +40,10 @@ public class CustomerController {
     @Operation(
             method = "GET",
             summary = "Retrieve a customer by cpf",
-            tags = {"Customer"},
+            tags = {ControllerConstant.CUSTOMER},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -55,6 +58,7 @@ public class CustomerController {
                                     )))
             }
     )
+    @Validated
     public CustomerResponse retrieveCustomer(@PathVariable String cpf) throws CustomerNotFoundException {
         log.info("GET - Searching for a specific customer cpf {}.", cpf);
         return this.customerService.retrieveCustomer(cpf);
@@ -64,10 +68,10 @@ public class CustomerController {
     @Operation(
             method = "GET",
             summary = "Retrieve a list of customers",
-            tags = {"Customer"},
+            tags = {ControllerConstant.CUSTOMER},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
@@ -92,10 +96,10 @@ public class CustomerController {
     @Operation(
             method = "PUT",
             summary = "Update specific customer information",
-            tags = {"Customer"},
+            tags = {ControllerConstant.CUSTOMER},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -119,10 +123,10 @@ public class CustomerController {
     @Operation(
             method = "POST",
             summary = "Create a customer",
-            tags = {"Customer"},
+            tags = {ControllerConstant.CUSTOMER},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -146,10 +150,10 @@ public class CustomerController {
     @Operation(
             method = "DELETE",
             summary = "Delete a customer",
-            tags = {"Customer"},
+            tags = {ControllerConstant.CUSTOMER},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",

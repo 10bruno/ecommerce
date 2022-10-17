@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -19,6 +20,8 @@ import java.util.Objects;
 @Table(name = "inventory")
 public class InventoryEntity implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 114L;
     @Id
     private Integer id;
     private BigDecimal availableQuantity;

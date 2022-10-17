@@ -2,6 +2,7 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.InventoryRequest;
 import br.com.ecommerce.controller.response.InventoryResponse;
+import br.com.ecommerce.controller.response.constant.ControllerConstant;
 import br.com.ecommerce.controller.response.exception.InventoryCreateException;
 import br.com.ecommerce.controller.response.exception.InventoryDeleteException;
 import br.com.ecommerce.controller.response.exception.InventoryNotFoundException;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/inventory")
-@Tag(name = "Inventory", description = "CRUD of the inventory service.")
+@Tag(name = ControllerConstant.INVENTORY, description = "CRUD of the inventory service.")
 @Slf4j
 public class InventoryController {
 
@@ -37,10 +38,10 @@ public class InventoryController {
     @Operation(
             method = "GET",
             summary = "Retrieve a inventory by id",
-            tags = {"Inventory"},
+            tags = {ControllerConstant.INVENTORY},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -64,10 +65,10 @@ public class InventoryController {
     @Operation(
             method = "GET",
             summary = "Retrieve a list of inventories",
-            tags = {"Inventory"},
+            tags = {ControllerConstant.INVENTORY},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
@@ -92,10 +93,10 @@ public class InventoryController {
     @Operation(
             method = "PUT",
             summary = "Update specific inventory information",
-            tags = {"Inventory"},
+            tags = {ControllerConstant.INVENTORY},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -119,10 +120,10 @@ public class InventoryController {
     @Operation(
             method = "POST",
             summary = "Create a inventory",
-            tags = {"Inventory"},
+            tags = {ControllerConstant.INVENTORY},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -146,10 +147,10 @@ public class InventoryController {
     @Operation(
             method = "DELETE",
             summary = "Delete a inventory",
-            tags = {"Inventory"},
+            tags = {ControllerConstant.INVENTORY},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",

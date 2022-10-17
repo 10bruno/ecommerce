@@ -9,7 +9,7 @@ import br.com.ecommerce.controller.response.exception.HistoricDeleteException;
 import br.com.ecommerce.controller.response.exception.HistoricNotFoundException;
 import br.com.ecommerce.domain.entity.mysql.HistoricEntity;
 import br.com.ecommerce.domain.repository.mysql.HistoricRepository;
-import br.com.ecommerce.enumerated.MessageEnum;
+import br.com.ecommerce.controller.response.enumerated.MessageEnum;
 import br.com.ecommerce.service.HistoricService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class HistoricServiceImpl implements HistoricService {
     public HistoricResponse retrieveHistoric(Integer id) throws HistoricNotFoundException {
         HistoricEntity historicEntity =
                 historicRepository.findById(id)
-                        .orElseThrow(() -> new HistoricNotFoundException(MessageEnum.HISTORIC_NOT_FOUND_EXCEPTION.getValue()));
+                        .orElseThrow(() -> new HistoricNotFoundException(MessageEnum.HISTORIC_NOT_FOUND_EXCEPTION.getValue(), new Exception()));
 
         return historicEntityToResponseAdapter.getHistoricResponse(historicEntity);
     }
@@ -44,7 +44,7 @@ public class HistoricServiceImpl implements HistoricService {
     public List<HistoricResponse> retrieveListHistorics() throws HistoricNotFoundException {
         List<HistoricEntity> historicEntityList = historicRepository.findAll();
         if (historicEntityList.isEmpty())
-            throw new HistoricNotFoundException(MessageEnum.HISTORIC_LIST_NOT_FOUND_EXCEPTION.getValue());
+            throw new HistoricNotFoundException(MessageEnum.HISTORIC_LIST_NOT_FOUND_EXCEPTION.getValue(), new Exception());
 
         return historicEntityToResponseAdapter.buildListHistoricResponse(historicEntityList);
     }
@@ -58,7 +58,7 @@ public class HistoricServiceImpl implements HistoricService {
             HistoricEntity historicEntitySaved = this.historicRepository.save(historicEntity);
             return historicEntityToResponseAdapter.getHistoricResponse(historicEntitySaved);
         } catch (Exception exception) {
-            throw new HistoricCreateException(MessageEnum.HISTORIC_ERROR_ON_CREATE_EXCEPTION.getValue());
+            throw new HistoricCreateException(MessageEnum.HISTORIC_ERROR_ON_CREATE_EXCEPTION.getValue(), exception);
         }
     }
 
@@ -67,7 +67,7 @@ public class HistoricServiceImpl implements HistoricService {
         try {
             this.historicRepository.deleteById(id);
         } catch (Exception exception) {
-            throw new HistoricDeleteException(MessageEnum.HISTORIC_ERROR_ON_DELETE_EXCEPTION.getValue());
+            throw new HistoricDeleteException(MessageEnum.HISTORIC_ERROR_ON_DELETE_EXCEPTION.getValue(), exception);
         }
     }
 }

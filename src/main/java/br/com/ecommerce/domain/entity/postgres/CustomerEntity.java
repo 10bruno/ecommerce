@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,6 +19,8 @@ import java.util.Objects;
 @Table(name = "customer")
 public class CustomerEntity implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 113L;
     @Id
     private String cpf;
     private String name;

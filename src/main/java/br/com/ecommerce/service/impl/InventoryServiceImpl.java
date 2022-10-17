@@ -9,7 +9,7 @@ import br.com.ecommerce.controller.response.exception.InventoryDeleteException;
 import br.com.ecommerce.controller.response.exception.InventoryNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.InventoryEntity;
 import br.com.ecommerce.domain.repository.postgres.InventoryRepository;
-import br.com.ecommerce.enumerated.MessageEnum;
+import br.com.ecommerce.controller.response.enumerated.MessageEnum;
 import br.com.ecommerce.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryResponse retrieveInventory(Integer id) throws InventoryNotFoundException {
         InventoryEntity inventoryEntity =
                 inventoryRepository.findById(id)
-                        .orElseThrow(() -> new InventoryNotFoundException(MessageEnum.INVENTORY_NOT_FOUND_EXCEPTION.getValue()));
+                        .orElseThrow(() -> new InventoryNotFoundException(MessageEnum.INVENTORY_NOT_FOUND_EXCEPTION.getValue(), new Exception()));
 
         return inventoryEntityToResponseAdapter.getInventoryResponse(inventoryEntity);
     }
@@ -43,7 +43,7 @@ public class InventoryServiceImpl implements InventoryService {
     public List<InventoryResponse> retrieveListInventories() throws InventoryNotFoundException {
         List<InventoryEntity> inventoryEntityList = this.inventoryRepository.findAll();
         if (inventoryEntityList.isEmpty())
-            throw new InventoryNotFoundException(MessageEnum.INVENTORY_LIST_NOT_FOUND_EXCEPTION.getValue());
+            throw new InventoryNotFoundException(MessageEnum.INVENTORY_LIST_NOT_FOUND_EXCEPTION.getValue(), new Exception());
 
         return inventoryEntityToResponseAdapter.buildListInventoryResponse(inventoryEntityList);
     }
@@ -55,7 +55,7 @@ public class InventoryServiceImpl implements InventoryService {
             InventoryEntity inventoryEntitySaved = this.inventoryRepository.save(inventoryEntity);
             return inventoryEntityToResponseAdapter.getInventoryResponse(inventoryEntitySaved);
         } catch (Exception exception) {
-            throw new InventoryCreateException(MessageEnum.INVENTORY_ERROR_ON_CREATE_EXCEPTION.getValue());
+            throw new InventoryCreateException(MessageEnum.INVENTORY_ERROR_ON_CREATE_EXCEPTION.getValue(), exception);
         }
     }
 
@@ -64,7 +64,7 @@ public class InventoryServiceImpl implements InventoryService {
         try {
             this.inventoryRepository.deleteById(id);
         } catch (Exception exception) {
-            throw new InventoryDeleteException(MessageEnum.INVENTORY_ERROR_ON_DELETE_EXCEPTION.getValue());
+            throw new InventoryDeleteException(MessageEnum.INVENTORY_ERROR_ON_DELETE_EXCEPTION.getValue(), exception);
         }
     }
 }

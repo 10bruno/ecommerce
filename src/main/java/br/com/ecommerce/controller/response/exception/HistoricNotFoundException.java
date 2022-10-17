@@ -1,7 +1,12 @@
 package br.com.ecommerce.controller.response.exception;
 
-public class HistoricNotFoundException extends Exception {
-    public HistoricNotFoundException(String message) {
-        super(message);
+import java.io.Serial;
+import java.io.Serializable;
+
+public class HistoricNotFoundException extends Exception implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 105L;
+    public HistoricNotFoundException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

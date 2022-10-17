@@ -1,4 +1,4 @@
-package br.com.ecommerce.enumerated;
+package br.com.ecommerce.controller.response.enumerated;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

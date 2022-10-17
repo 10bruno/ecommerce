@@ -4,13 +4,12 @@ import br.com.ecommerce.adapter.ProductEntityToResponseAdapter;
 import br.com.ecommerce.adapter.ProductRequestToProductEntityAdapter;
 import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
-import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
 import br.com.ecommerce.controller.response.exception.ProductCreateException;
 import br.com.ecommerce.controller.response.exception.ProductDeleteException;
 import br.com.ecommerce.controller.response.exception.ProductNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.ProductEntity;
 import br.com.ecommerce.domain.repository.postgres.ProductRepository;
-import br.com.ecommerce.enumerated.MessageEnum;
+import br.com.ecommerce.controller.response.enumerated.MessageEnum;
 import br.com.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,19 +31,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse retrieveProduct(Integer id) throws ProductNotFoundException {
+    public ProductResponse retrieveProduct(String id) throws ProductNotFoundException {
         ProductEntity productEntity =
                 productRepository.findById(id)
-                        .orElseThrow(() -> new ProductNotFoundException(MessageEnum.PRODUCT_NOT_FOUND_EXCEPTION.getValue()));
+                        .orElseThrow(() -> new ProductNotFoundException(MessageEnum.PRODUCT_NOT_FOUND_EXCEPTION.getValue(), new Exception()));
 
         return productEntityToResponseAdapter.getProductResponse(productEntity);
     }
 
     @Override
-    public List<ProductResponse> retrieveListProducts() throws CustomerNotFoundException {
+    public List<ProductResponse> retrieveListProducts() throws ProductNotFoundException {
         List<ProductEntity> productEntityList = this.productRepository.findAll();
         if (productEntityList.isEmpty())
-            throw new CustomerNotFoundException(MessageEnum.PRODUCT_LIST_NOT_FOUND_EXCEPTION.getValue());
+            throw new ProductNotFoundException(MessageEnum.PRODUCT_LIST_NOT_FOUND_EXCEPTION.getValue(), new Exception());
 
         return productEntityToResponseAdapter.buildListProductResponse(productEntityList);
     }
@@ -55,17 +54,17 @@ public class ProductServiceImpl implements ProductService {
         try {
             ProductEntity productEntitySaved = this.productRepository.save(productEntity);
             return productEntityToResponseAdapter.getProductResponse(productEntitySaved);
-        } catch (Exception exception) {
-            throw new ProductCreateException(MessageEnum.PRODUCT_ERROR_ON_CREATE_EXCEPTION.getValue());
+        } catch (Exception ex) {
+            throw new ProductCreateException(MessageEnum.PRODUCT_ERROR_ON_CREATE_EXCEPTION.getValue(), ex);
         }
     }
 
     @Override
-    public void deleteProduct(Integer id) throws ProductDeleteException {
+    public void deleteProduct(String id) throws ProductDeleteException {
         try {
             this.productRepository.deleteById(id);
-        } catch (Exception exception) {
-            throw new ProductDeleteException(MessageEnum.PRODUCT_ERROR_ON_DELETE_EXCEPTION.getValue());
+        } catch (Exception ex) {
+            throw new ProductDeleteException(MessageEnum.PRODUCT_ERROR_ON_DELETE_EXCEPTION.getValue(), ex);
         }
     }
 }

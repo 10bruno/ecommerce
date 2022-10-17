@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +21,8 @@ import java.util.Objects;
 @Table(name = "product")
 public class ProductEntity implements Serializable {
 
+    @Serial
+    private static final long serialVersionUID = 115L;
     @Id
     private String code;
     private String category;

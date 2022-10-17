@@ -9,7 +9,7 @@ import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
 import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.CustomerEntity;
 import br.com.ecommerce.domain.repository.postgres.CustomerRepository;
-import br.com.ecommerce.enumerated.MessageEnum;
+import br.com.ecommerce.controller.response.enumerated.MessageEnum;
 import br.com.ecommerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerResponse retrieveCustomer(String cpf) throws CustomerNotFoundException {
         CustomerEntity customerEntity =
                 customerRepository.findById(cpf)
-                        .orElseThrow(() -> new CustomerNotFoundException(MessageEnum.CUSTOMER_NOT_FOUND_EXCEPTION.getValue()));
+                        .orElseThrow(() -> new CustomerNotFoundException(MessageEnum.CUSTOMER_NOT_FOUND_EXCEPTION.getValue(), new Exception()));
 
         return customerEntityToResponseAdapter.getCustomerResponse(customerEntity);
     }
@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerResponse> retrieveListCustomers() throws CustomerNotFoundException {
         List<CustomerEntity> customerEntityList = this.customerRepository.findAll();
         if (customerEntityList.isEmpty())
-            throw new CustomerNotFoundException(MessageEnum.CUSTOMERS_LIST_NOT_FOUND_EXCEPTION.getValue());
+            throw new CustomerNotFoundException(MessageEnum.CUSTOMERS_LIST_NOT_FOUND_EXCEPTION.getValue(), new Exception());
 
         return customerEntityToResponseAdapter.buildListCustomerResponse(customerEntityList);
     }
@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
             CustomerEntity customerEntitySaved = this.customerRepository.save(customerEntity);
             return customerEntityToResponseAdapter.getCustomerResponse(customerEntitySaved);
         } catch (Exception exception) {
-            throw new CustomerCreateException(MessageEnum.CUSTOMER_ERROR_ON_CREATE_EXCEPTION.getValue());
+            throw new CustomerCreateException(MessageEnum.CUSTOMER_ERROR_ON_CREATE_EXCEPTION.getValue(), exception);
         }
     }
 
@@ -63,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             this.customerRepository.deleteById(cpf);
         } catch (Exception exception) {
-            throw new CustomerDeleteException(MessageEnum.CUSTOMER_ERROR_ON_DELETE_EXCEPTION.getValue());
+            throw new CustomerDeleteException(MessageEnum.CUSTOMER_ERROR_ON_DELETE_EXCEPTION.getValue(), exception);
         }
     }
 }

@@ -12,8 +12,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private ResponseEntity<Object> getErrorResponse(String msg, HttpStatus httpStatus) {
+    private ResponseEntity<Object> getErrorResponse(String msg, Throwable cause, HttpStatus httpStatus) {
         log.error(msg);
+        log.debug(cause.toString());
         ErrorResponse errorResponse = new ErrorResponse(msg);
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
@@ -23,8 +24,8 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
                     HistoricNotFoundException.class,
                     InventoryNotFoundException.class,
                     ProductNotFoundException.class})
-    public ResponseEntity<Object> handleExceptionNotFound(Exception exception) {
-        return getErrorResponse(exception.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<Object> handleExceptionNotFound(Exception exception, Throwable cause) {
+        return getErrorResponse(exception.getMessage(), cause, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(
@@ -32,8 +33,8 @@ public class GenericExceptionHandler extends ResponseEntityExceptionHandler {
                     HistoricCreateException.class,
                     InventoryCreateException.class,
                     ProductCreateException.class})
-    public ResponseEntity<Object> handleExceptionInternalError(Exception exception) {
-        return getErrorResponse(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<Object> handleExceptionInternalError(Exception exception, Throwable cause) {
+        return getErrorResponse(exception.getMessage(), cause, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

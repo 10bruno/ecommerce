@@ -2,6 +2,7 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.HistoricRequest;
 import br.com.ecommerce.controller.response.HistoricResponse;
+import br.com.ecommerce.controller.response.constant.ControllerConstant;
 import br.com.ecommerce.controller.response.exception.HistoricCreateException;
 import br.com.ecommerce.controller.response.exception.HistoricDeleteException;
 import br.com.ecommerce.controller.response.exception.HistoricNotFoundException;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/historic")
-@Tag(name = "Historic", description = "CRUD of the historic service.")
+@Tag(name = ControllerConstant.HISTORIC, description = "CRUD of the historic service.")
 @Slf4j
 public class HistoricController {
 
@@ -37,10 +38,10 @@ public class HistoricController {
     @Operation(
             method = "GET",
             summary = "Retrieve a historic by id",
-            tags = {"Historic"},
+            tags = {ControllerConstant.HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -64,10 +65,10 @@ public class HistoricController {
     @Operation(
             method = "GET",
             summary = "Retrieve a list of historics",
-            tags = {"Historic"},
+            tags = {ControllerConstant.HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
@@ -92,10 +93,10 @@ public class HistoricController {
     @Operation(
             method = "PUT",
             summary = "Update specific historic information",
-            tags = {"Historic"},
+            tags = {ControllerConstant.HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -119,10 +120,10 @@ public class HistoricController {
     @Operation(
             method = "POST",
             summary = "Create a historic",
-            tags = {"Historic"},
+            tags = {ControllerConstant.HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -146,10 +147,10 @@ public class HistoricController {
     @Operation(
             method = "DELETE",
             summary = "Delete a historic",
-            tags = {"Historic"},
+            tags = {ControllerConstant.HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",

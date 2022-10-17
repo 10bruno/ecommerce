@@ -2,7 +2,7 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
-import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
+import br.com.ecommerce.controller.response.constant.ControllerConstant;
 import br.com.ecommerce.controller.response.exception.ProductCreateException;
 import br.com.ecommerce.controller.response.exception.ProductDeleteException;
 import br.com.ecommerce.controller.response.exception.ProductNotFoundException;
@@ -23,9 +23,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
-@Tag(name = "Product", description = "CRUD of the product service.")
+@Tag(name = ControllerConstant.PRODUCT, description = "CRUD of the product service.")
 @Slf4j
 public class ProductController {
+
 
     private final ProductService productService;
 
@@ -38,10 +39,10 @@ public class ProductController {
     @Operation(
             method = "GET",
             summary = "Retrieve a product by id",
-            tags = {"Product"},
+            tags = {ControllerConstant.PRODUCT},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -56,7 +57,7 @@ public class ProductController {
                                     )))
             }
     )
-    public ProductResponse retrieveProduct(@PathVariable Integer id) throws ProductNotFoundException {
+    public ProductResponse retrieveProduct(@PathVariable String id) throws ProductNotFoundException {
         log.info("GET - Searching for a specific product id {}.", id);
         return this.productService.retrieveProduct(id);
     }
@@ -65,10 +66,10 @@ public class ProductController {
     @Operation(
             method = "GET",
             summary = "Retrieve a list of products",
-            tags = {"Product"},
+            tags = {ControllerConstant.PRODUCT},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
@@ -84,7 +85,7 @@ public class ProductController {
                                     )))
             }
     )
-    public List<ProductResponse> retrieveListProducts() throws CustomerNotFoundException {
+    public List<ProductResponse> retrieveListProducts() throws ProductNotFoundException {
         log.info("GET - Searching all products.");
         return this.productService.retrieveListProducts();
     }
@@ -93,10 +94,10 @@ public class ProductController {
     @Operation(
             method = "PUT",
             summary = "Update specific product information",
-            tags = {"Product"},
+            tags = {ControllerConstant.PRODUCT},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -120,10 +121,10 @@ public class ProductController {
     @Operation(
             method = "POST",
             summary = "Create a product",
-            tags = {"Product"},
+            tags = {ControllerConstant.PRODUCT},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
@@ -147,10 +148,10 @@ public class ProductController {
     @Operation(
             method = "DELETE",
             summary = "Delete a product",
-            tags = {"Product"},
+            tags = {ControllerConstant.PRODUCT},
             responses = {
                     @ApiResponse(description = "OK",
-                            responseCode = "200",
+                            responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(description = "Internal Server Error",
@@ -162,7 +163,7 @@ public class ProductController {
                                     )))
             }
     )
-    public void deleteProduct(@PathVariable Integer id) throws ProductDeleteException {
+    public void deleteProduct(@PathVariable String id) throws ProductDeleteException {
         log.info("DELETE - Delete a product {}.", id);
         this.productService.deleteProduct(id);
     }

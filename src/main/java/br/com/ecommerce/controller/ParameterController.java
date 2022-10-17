@@ -1,5 +1,6 @@
 package br.com.ecommerce.controller;
 
+import br.com.ecommerce.controller.response.constant.ControllerConstant;
 import br.com.ecommerce.parameter.ParameterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/parameter")
-@Tag(name = "Parameter", description = "Example of use parameters on application.yaml.")
+@Tag(name = ControllerConstant.PARAMETER, description = "Example of use parameters on application.yaml.")
 @Slf4j
 public class ParameterController {
+
 
     private final ParameterService parameterService;
 
@@ -26,7 +28,7 @@ public class ParameterController {
     @Operation(
             method = "GET",
             summary = "Retrieve a list of parameters.",
-            tags = {"Parameter"})
+            tags = {ControllerConstant.PARAMETER})
     public void retrieveListParameters() {
         this.parameterService.getListParameter();
     }
@@ -35,7 +37,7 @@ public class ParameterController {
     @Operation(
             method = "GET",
             summary = "Retrieve a sequence of parameters.",
-            tags = {"Parameter"})
+            tags = {ControllerConstant.PARAMETER})
     public void getSequenceParameters() {
         this.parameterService.getSequenceParameter();
     }

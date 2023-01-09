@@ -26,16 +26,16 @@ Project created for study and aims to be a REST api of a CRUD:
 ### Upgrade Plan
 | Description                                     | Done?                 | Date       |
 |-------------------------------------------------|-----------------------|------------|
-| Upgrade Java version to 17                      | :heavy_check_mark:    |            |
-| Upgrade Gradle version to 7.5.1                 | :heavy_check_mark:    |            |
-| Upgrade Swagger 2.9 to OpenApiDoc 3.0           | :heavy_check_mark:    |            |
-| Change Controller Input Objects to DTO/Request  | :heavy_check_mark:    |            |
-| Create adapter layer                            | :heavy_check_mark:    |            |
+| Upgrade Java version to 17                      | :heavy_check_mark:    | 27/09/2022 |
+| Upgrade Gradle version to 7.5.1                 | :heavy_check_mark:    | 27/09/2022 |
+| Upgrade Swagger 2.9 to OpenApiDoc 3.0           | :heavy_check_mark:    | 28/09/2022 |
+| Change Controller Input Objects to DTO/Request  | :heavy_check_mark:    | 11/10/2022 |
+| Create adapter layer                            | :heavy_check_mark:    | 11/10/2022 |
 | Finish unit tests                               | :black_square_button: |            |
 | Create a local Docker for Mysql                 | :black_square_button: |            |
-| Include on Controller information of OpenApiDoc | :heavy_check_mark:    |            |
-| Translate project to English                    | :heavy_check_mark:    |            |
-| Change project name to "ecommerce"              | :heavy_check_mark:    |            |
+| Include on Controller information of OpenApiDoc | :heavy_check_mark:    | 28/09/2022 |
+| Translate project to English                    | :heavy_check_mark:    | 10/10/2022 |
+| Change project name to "ecommerce"              | :heavy_check_mark:    | 11/10/2022 |
 | Include @Valid and @Validated to Controllers    | :heavy_check_mark:    | 09/01/2023 |
 | Create Handler exception controller             | :black_square_button: |            |
 | Include flyway on project                       | :black_square_button: |            |

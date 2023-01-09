@@ -2,12 +2,12 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.controller.response.exception.ProductCreateException;
-import br.com.ecommerce.controller.response.exception.ProductDeleteException;
-import br.com.ecommerce.controller.response.exception.ProductNotFoundException;
-import br.com.ecommerce.controller.response.handler.ErrorResponse;
-import br.com.ecommerce.service.ProductService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.infra.exception.ProductCreateException;
+import br.com.ecommerce.infra.exception.ProductDeleteException;
+import br.com.ecommerce.infra.exception.ProductNotFoundException;
+import br.com.ecommerce.infra.handler.ErrorResponse;
+import br.com.ecommerce.domain.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,14 +17,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
 @RequestMapping("/product")
 @Tag(name = ControllerConstant.PRODUCT, description = "CRUD of the product service.")
 @Slf4j
+@Validated
 public class ProductController {
 
 
@@ -57,9 +63,14 @@ public class ProductController {
                                     )))
             }
     )
-    public ProductResponse retrieveProduct(@PathVariable String id) throws ProductNotFoundException {
+    public ResponseEntity<ProductResponse> retrieveProduct(@PathVariable(name = "id")
+                                                           @Valid
+                                                           @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
+                                                           String id) throws ProductNotFoundException {
         log.info("GET - Searching for a specific product id {}.", id);
-        return this.productService.retrieveProduct(id);
+        ProductResponse returnProduct = this.productService.retrieveProduct(id);
+
+        return ResponseEntity.ok(returnProduct);
     }
 
     @GetMapping()
@@ -85,15 +96,17 @@ public class ProductController {
                                     )))
             }
     )
-    public List<ProductResponse> retrieveListProducts() throws ProductNotFoundException {
+    public ResponseEntity<List<ProductResponse>> retrieveListProducts() throws ProductNotFoundException {
         log.info("GET - Searching all products.");
-        return this.productService.retrieveListProducts();
+        List<ProductResponse> listProducts = this.productService.retrieveListProducts();
+
+        return ResponseEntity.ok(listProducts);
     }
 
     @PutMapping()
     @Operation(
             method = "PUT",
-            summary = "Update specific product information",
+            summary = "Update product information",
             tags = {ControllerConstant.PRODUCT},
             responses = {
                     @ApiResponse(description = "OK",
@@ -112,9 +125,13 @@ public class ProductController {
                                     )))
             }
     )
-    public ProductResponse updateProduct(@RequestBody ProductRequest productRequest) throws ProductCreateException {
-        log.info("PUT - Update specific product information {}.", productRequest);
-        return this.productService.createOrUpdateProduct(productRequest);
+    public ResponseEntity<ProductResponse> updateProduct(@RequestBody
+                                                         @Valid
+                                                         ProductRequest productRequest) throws ProductCreateException {
+        log.info("PUT - Update product information {}.", productRequest);
+        ProductResponse returnProduct = this.productService.createProduct(productRequest);
+
+        return ResponseEntity.ok(returnProduct);
     }
 
     @PostMapping()
@@ -139,9 +156,16 @@ public class ProductController {
                                     )))
             }
     )
-    public ProductResponse createOrUpdateProduct(@RequestBody ProductRequest productRequest) throws ProductCreateException {
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody
+                                                         @Valid
+                                                         ProductRequest productRequest,
+                                                         UriComponentsBuilder uriBuilder) throws ProductCreateException {
         log.info("POST - Create a product {}.", productRequest);
-        return this.productService.createOrUpdateProduct(productRequest);
+        ProductResponse returnProduct = this.productService.createProduct(productRequest);
+
+        var uri = uriBuilder.path("/product/{id}").buildAndExpand(returnProduct.getCode()).toUri();
+
+        return ResponseEntity.created(uri).body(returnProduct);
     }
 
     @DeleteMapping("/{id}")
@@ -163,8 +187,12 @@ public class ProductController {
                                     )))
             }
     )
-    public void deleteProduct(@PathVariable String id) throws ProductDeleteException {
+    public ResponseEntity<String> deleteProduct(@PathVariable
+                                                @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
+                                                String id) throws ProductDeleteException {
         log.info("DELETE - Delete a product {}.", id);
         this.productService.deleteProduct(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

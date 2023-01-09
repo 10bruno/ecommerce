@@ -2,12 +2,12 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.controller.response.exception.CustomerCreateException;
-import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
-import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
-import br.com.ecommerce.controller.response.handler.ErrorResponse;
-import br.com.ecommerce.service.CustomerService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.infra.exception.CustomerCreateException;
+import br.com.ecommerce.infra.exception.CustomerDeleteException;
+import br.com.ecommerce.infra.exception.CustomerNotFoundException;
+import br.com.ecommerce.infra.handler.ErrorResponse;
+import br.com.ecommerce.domain.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,16 +17,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/customer")
 @Tag(name = ControllerConstant.CUSTOMER, description = "CRUD of the customer service.")
 @Slf4j
+@Validated
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -58,10 +62,14 @@ public class CustomerController {
                                     )))
             }
     )
-    @Validated
-    public CustomerResponse retrieveCustomer(@PathVariable String cpf) throws CustomerNotFoundException {
+    public ResponseEntity<CustomerResponse> retrieveCustomer(@PathVariable(name = "cpf")
+                                                             @Valid
+                                                             @Pattern(regexp = "^\\d{11}$", message = "Cpf must have 11 characters and only numbers.")
+                                                             String cpf) throws CustomerNotFoundException {
         log.info("GET - Searching for a specific customer cpf {}.", cpf);
-        return this.customerService.retrieveCustomer(cpf);
+        CustomerResponse returnCustomer = this.customerService.retrieveCustomer(cpf);
+
+        return ResponseEntity.ok(returnCustomer);
     }
 
     @GetMapping()
@@ -87,15 +95,17 @@ public class CustomerController {
                                     )))
             }
     )
-    public List<CustomerResponse> retrieveListCustomers() throws CustomerNotFoundException {
+    public ResponseEntity<List<CustomerResponse>> retrieveListCustomers() throws CustomerNotFoundException {
         log.info("GET - Searching all customers.");
-        return this.customerService.retrieveListCustomers();
+        List<CustomerResponse> listCustomers = this.customerService.retrieveListCustomers();
+
+        return ResponseEntity.ok(listCustomers);
     }
 
-    @PutMapping()
+    @PutMapping
     @Operation(
             method = "PUT",
-            summary = "Update specific customer information",
+            summary = "Update customer information",
             tags = {ControllerConstant.CUSTOMER},
             responses = {
                     @ApiResponse(description = "OK",
@@ -114,12 +124,16 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse updateCustomer(@RequestBody CustomerRequest customer) throws CustomerCreateException {
-        log.info("PUT - Update specific customer information {}.", customer);
-        return this.customerService.createOrUpdateCustomer(customer);
+    public ResponseEntity<CustomerResponse> updateCustomer(@RequestBody
+                                                           @Valid
+                                                           CustomerRequest customer) throws CustomerCreateException {
+        log.info("PUT - Update customer information {}.", customer);
+        CustomerResponse returnCustomer = this.customerService.createCustomer(customer);
+
+        return ResponseEntity.ok(returnCustomer);
     }
 
-    @PostMapping()
+    @PostMapping
     @Operation(
             method = "POST",
             summary = "Create a customer",
@@ -141,9 +155,15 @@ public class CustomerController {
                                     )))
             }
     )
-    public CustomerResponse createOrUpdateCustomer(@RequestBody CustomerRequest customer) throws CustomerCreateException {
+    public ResponseEntity<CustomerResponse> createCustomer(@RequestBody
+                                                           @Valid
+                                                           CustomerRequest customer, UriComponentsBuilder uriBuilder) throws CustomerCreateException {
         log.info("POST - Create a customer {}.", customer);
-        return this.customerService.createOrUpdateCustomer(customer);
+        CustomerResponse returnCustomer = this.customerService.createCustomer(customer);
+
+        var uri = uriBuilder.path("/customer/{cpf}").buildAndExpand(returnCustomer.getCpf()).toUri();
+
+        return ResponseEntity.created(uri).body(returnCustomer);
     }
 
     @DeleteMapping("/{cpf}")
@@ -165,8 +185,12 @@ public class CustomerController {
                                     )))
             }
     )
-    public void deleteCustomer(@PathVariable String cpf) throws CustomerDeleteException {
+    public ResponseEntity<String> deleteCustomer(@PathVariable
+                                                 @Pattern(regexp = "^\\d{11}$", message = "Cpf must have 11 characters and only numbers.")
+                                                 String cpf) throws CustomerDeleteException {
         log.info("DELETE - Delete a customer cpf {}.", cpf);
         this.customerService.deleteCustomer(cpf);
+
+        return ResponseEntity.noContent().build();
     }
 }

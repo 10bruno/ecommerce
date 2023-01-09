@@ -2,12 +2,12 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.HistoricRequest;
 import br.com.ecommerce.controller.response.HistoricResponse;
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.controller.response.exception.HistoricCreateException;
-import br.com.ecommerce.controller.response.exception.HistoricDeleteException;
-import br.com.ecommerce.controller.response.exception.HistoricNotFoundException;
-import br.com.ecommerce.controller.response.handler.ErrorResponse;
-import br.com.ecommerce.service.HistoricService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.infra.exception.HistoricCreateException;
+import br.com.ecommerce.infra.exception.HistoricDeleteException;
+import br.com.ecommerce.infra.exception.HistoricNotFoundException;
+import br.com.ecommerce.infra.handler.ErrorResponse;
+import br.com.ecommerce.domain.service.HistoricService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,14 +17,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
 @RequestMapping("/historic")
 @Tag(name = ControllerConstant.HISTORIC, description = "CRUD of the historic service.")
 @Slf4j
+@Validated
 public class HistoricController {
 
     private final HistoricService historicService;
@@ -56,9 +62,14 @@ public class HistoricController {
                                     )))
             }
     )
-    public HistoricResponse retrieveHistoric(@PathVariable Integer id) throws HistoricNotFoundException {
+    public ResponseEntity<HistoricResponse> retrieveHistoric(@PathVariable
+                                                             @Valid
+                                                             @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                             Integer id) throws HistoricNotFoundException {
         log.info("GET - Searching for a specific historic id {}.", id);
-        return this.historicService.retrieveHistoric(id);
+        HistoricResponse returnHistoric = this.historicService.retrieveHistoric(id);
+
+        return ResponseEntity.ok(returnHistoric);
     }
 
     @GetMapping()
@@ -84,15 +95,17 @@ public class HistoricController {
                                     )))
             }
     )
-    public List<HistoricResponse> retrieveListHistorics() throws HistoricNotFoundException {
+    public ResponseEntity<List<HistoricResponse>> retrieveListHistorics() throws HistoricNotFoundException {
         log.info("GET - Searching all historics.");
-        return this.historicService.retrieveListHistorics();
+        List<HistoricResponse> listHistorics = this.historicService.retrieveListHistorics();
+
+        return ResponseEntity.ok(listHistorics);
     }
 
     @PutMapping()
     @Operation(
             method = "PUT",
-            summary = "Update specific historic information",
+            summary = "Update historic information",
             tags = {ControllerConstant.HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
@@ -111,9 +124,13 @@ public class HistoricController {
                                     )))
             }
     )
-    public HistoricResponse updateHistoric(@RequestBody HistoricRequest historicRequest) throws HistoricCreateException {
-        log.info("PUT - Update specific historic information {}", historicRequest);
-        return this.historicService.createOrUpdateHistoric(historicRequest);
+    public ResponseEntity<HistoricResponse> updateHistoric(@RequestBody
+                                                           @Valid
+                                                           HistoricRequest historicRequest) throws HistoricCreateException {
+        log.info("PUT - Update historic information {}", historicRequest);
+        HistoricResponse returnHistoric = this.historicService.createHistoric(historicRequest);
+
+        return ResponseEntity.ok(returnHistoric);
     }
 
     @PostMapping()
@@ -138,9 +155,16 @@ public class HistoricController {
                                     )))
             }
     )
-    public HistoricResponse createOrUpdateHistoric(@RequestBody HistoricRequest historicRequest) throws HistoricCreateException {
+    public ResponseEntity<HistoricResponse> createHistoric(@RequestBody
+                                                           @Valid
+                                                           HistoricRequest historicRequest,
+                                                           UriComponentsBuilder uriBuilder) throws HistoricCreateException {
         log.info("POST - Create a historic {}", historicRequest);
-        return this.historicService.createOrUpdateHistoric(historicRequest);
+        HistoricResponse returnHistoric = this.historicService.createHistoric(historicRequest);
+
+        var uri = uriBuilder.path("/historic/{id}").buildAndExpand(returnHistoric.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(returnHistoric);
     }
 
     @DeleteMapping("/{id}")
@@ -162,8 +186,12 @@ public class HistoricController {
                                     )))
             }
     )
-    public void deleteHistoric(@PathVariable Integer id) throws HistoricDeleteException {
+    public ResponseEntity<String> deleteHistoric(@PathVariable
+                                                 @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                 Integer id) throws HistoricDeleteException {
         log.info("DELETE - Delete a historic {}", id);
         this.historicService.deleteHistoric(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

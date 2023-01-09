@@ -36,7 +36,7 @@ Project created for study and aims to be a REST api of a CRUD:
 | Include on Controller information of OpenApiDoc | :heavy_check_mark:    |            |
 | Translate project to English                    | :heavy_check_mark:    |            |
 | Change project name to "ecommerce"              | :heavy_check_mark:    |            |
-| Include @Valid and @Validated to Controllers    | :black_square_button: | 09/01/2023 |
+| Include @Valid and @Validated to Controllers    | :heavy_check_mark:    | 09/01/2023 |
 | Create Handler exception controller             | :black_square_button: |            |
 | Include flyway on project                       | :black_square_button: |            |
 | Create db scripts for flyway                    | :black_square_button: |            |

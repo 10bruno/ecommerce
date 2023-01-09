@@ -13,7 +13,7 @@ public interface CustomerService {
 
     List<CustomerResponse> retrieveListCustomers() throws CustomerNotFoundException;
 
-    CustomerResponse createOrUpdateCustomer(CustomerRequest customer) throws CustomerCreateException;
+    CustomerResponse createCustomer(CustomerRequest customer) throws CustomerCreateException;
 
     void deleteCustomer(String cpf) throws CustomerDeleteException;
 }

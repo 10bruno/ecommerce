@@ -4,12 +4,12 @@ import br.com.ecommerce.adapter.ProductEntityToResponseAdapter;
 import br.com.ecommerce.adapter.ProductRequestToProductEntityAdapter;
 import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
+import br.com.ecommerce.controller.response.enumerated.MessageEnum;
 import br.com.ecommerce.controller.response.exception.ProductCreateException;
 import br.com.ecommerce.controller.response.exception.ProductDeleteException;
 import br.com.ecommerce.controller.response.exception.ProductNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.ProductEntity;
 import br.com.ecommerce.domain.repository.postgres.ProductRepository;
-import br.com.ecommerce.controller.response.enumerated.MessageEnum;
 import br.com.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse createOrUpdateProduct(ProductRequest productRequest) throws ProductCreateException {
+    public ProductResponse createProduct(ProductRequest productRequest) throws ProductCreateException {
         ProductEntity productEntity = productRequestToProductEntityAdapter.getProductEntity(productRequest);
         try {
             ProductEntity productEntitySaved = this.productRepository.save(productEntity);

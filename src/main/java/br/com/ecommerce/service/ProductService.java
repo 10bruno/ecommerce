@@ -13,7 +13,7 @@ public interface ProductService {
 
     List<ProductResponse> retrieveListProducts() throws ProductNotFoundException;
 
-    ProductResponse createOrUpdateProduct(ProductRequest productRequest) throws ProductCreateException;
+    ProductResponse createProduct(ProductRequest productRequest) throws ProductCreateException;
 
     void deleteProduct(String id) throws ProductDeleteException;
 }

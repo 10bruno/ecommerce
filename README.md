@@ -33,6 +33,7 @@ Project created for study and aims to be a REST api of a CRUD:
 | Translate project to English                    | :heavy_check_mark:    |
 | Change project name to "ecommerce"              | :heavy_check_mark:    |
 | Include @Validated to requests                  | :black_square_button: |
+| Create Handler exception controller             | :black_square_button: |
 
 ---
 

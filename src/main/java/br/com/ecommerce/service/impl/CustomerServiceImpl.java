@@ -48,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerResponse createOrUpdateCustomer(CustomerRequest customerRequest) throws CustomerCreateException {
+    public CustomerResponse createCustomer(CustomerRequest customerRequest) throws CustomerCreateException {
         CustomerEntity customerEntity = customerRequestToCustomerEntityAdapter.getCustomerEntity(customerRequest);
         try {
             CustomerEntity customerEntitySaved = this.customerRepository.save(customerEntity);

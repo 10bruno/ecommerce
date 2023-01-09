@@ -1,13 +1,13 @@
 package br.com.ecommerce.service;
 
-import br.com.ecommerce.adapter.CustomerEntityToResponseAdapter;
-import br.com.ecommerce.adapter.CustomerRequestToCustomerEntityAdapter;
+import br.com.ecommerce.adapter.toresponse.CustomerEntityToResponseAdapter;
+import br.com.ecommerce.adapter.toentity.CustomerRequestToCustomerEntityAdapter;
 import br.com.ecommerce.controller.response.CustomerResponse;
-import br.com.ecommerce.controller.response.enumerated.MessageEnum;
-import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
+import br.com.ecommerce.controller.common.enumerated.MessageEnum;
+import br.com.ecommerce.infra.exception.CustomerNotFoundException;
 import br.com.ecommerce.domain.entity.postgres.CustomerEntity;
 import br.com.ecommerce.domain.repository.postgres.CustomerRepository;
-import br.com.ecommerce.service.impl.CustomerServiceImpl;
+import br.com.ecommerce.domain.service.impl.CustomerServiceImpl;
 import br.com.ecommerce.util.MockBuilders;
 import br.com.ecommerce.util.TestConstants;
 import org.junit.jupiter.api.Test;

@@ -2,12 +2,12 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.controller.response.exception.ProductCreateException;
-import br.com.ecommerce.controller.response.exception.ProductDeleteException;
-import br.com.ecommerce.controller.response.exception.ProductNotFoundException;
-import br.com.ecommerce.controller.response.handler.ErrorResponse;
-import br.com.ecommerce.service.ProductService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.infra.exception.ProductCreateException;
+import br.com.ecommerce.infra.exception.ProductDeleteException;
+import br.com.ecommerce.infra.exception.ProductNotFoundException;
+import br.com.ecommerce.infra.handler.ErrorResponse;
+import br.com.ecommerce.domain.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -158,7 +158,8 @@ public class ProductController {
     )
     public ResponseEntity<ProductResponse> createProduct(@RequestBody
                                                          @Valid
-                                                         ProductRequest productRequest, UriComponentsBuilder uriBuilder) throws ProductCreateException {
+                                                         ProductRequest productRequest,
+                                                         UriComponentsBuilder uriBuilder) throws ProductCreateException {
         log.info("POST - Create a product {}.", productRequest);
         ProductResponse returnProduct = this.productService.createProduct(productRequest);
 

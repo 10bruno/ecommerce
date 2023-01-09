@@ -1,7 +1,7 @@
 package br.com.ecommerce.controller;
 
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.parameter.ParameterService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.service.ParameterService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;

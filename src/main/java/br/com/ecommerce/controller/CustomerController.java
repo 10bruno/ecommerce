@@ -2,12 +2,12 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.controller.response.exception.CustomerCreateException;
-import br.com.ecommerce.controller.response.exception.CustomerDeleteException;
-import br.com.ecommerce.controller.response.exception.CustomerNotFoundException;
-import br.com.ecommerce.controller.response.handler.ErrorResponse;
-import br.com.ecommerce.service.CustomerService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.infra.exception.CustomerCreateException;
+import br.com.ecommerce.infra.exception.CustomerDeleteException;
+import br.com.ecommerce.infra.exception.CustomerNotFoundException;
+import br.com.ecommerce.infra.handler.ErrorResponse;
+import br.com.ecommerce.domain.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

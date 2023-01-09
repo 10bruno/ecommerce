@@ -2,12 +2,12 @@ package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.request.InventoryRequest;
 import br.com.ecommerce.controller.response.InventoryResponse;
-import br.com.ecommerce.controller.response.constant.ControllerConstant;
-import br.com.ecommerce.controller.response.exception.InventoryCreateException;
-import br.com.ecommerce.controller.response.exception.InventoryDeleteException;
-import br.com.ecommerce.controller.response.exception.InventoryNotFoundException;
-import br.com.ecommerce.controller.response.handler.ErrorResponse;
-import br.com.ecommerce.service.InventoryService;
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.infra.exception.InventoryCreateException;
+import br.com.ecommerce.infra.exception.InventoryDeleteException;
+import br.com.ecommerce.infra.exception.InventoryNotFoundException;
+import br.com.ecommerce.infra.handler.ErrorResponse;
+import br.com.ecommerce.domain.service.InventoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,14 +17,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController
 @RequestMapping("/inventory")
 @Tag(name = ControllerConstant.INVENTORY, description = "CRUD of the inventory service.")
 @Slf4j
+@Validated
 public class InventoryController {
 
     private final InventoryService inventoryService;
@@ -56,9 +62,14 @@ public class InventoryController {
                                     )))
             }
     )
-    public InventoryResponse retrieveInventory(@PathVariable Integer id) throws InventoryNotFoundException {
+    public ResponseEntity<InventoryResponse> retrieveInventory(@PathVariable
+                                                               @Valid
+                                                               @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                               Integer id) throws InventoryNotFoundException {
         log.info("GET - Searching for a specific inventory id {}.", id);
-        return this.inventoryService.retrieveInventory(id);
+        InventoryResponse returnInventory = this.inventoryService.retrieveInventory(id);
+
+        return ResponseEntity.ok(returnInventory);
     }
 
     @GetMapping()
@@ -84,15 +95,17 @@ public class InventoryController {
                                     )))
             }
     )
-    public List<InventoryResponse> retrieveListInventories() throws InventoryNotFoundException {
+    public ResponseEntity<List<InventoryResponse>> retrieveListInventories() throws InventoryNotFoundException {
         log.info("GET - Searching all inventories.");
-        return this.inventoryService.retrieveListInventories();
+        List<InventoryResponse> listInventories = this.inventoryService.retrieveListInventories();
+
+        return ResponseEntity.ok(listInventories);
     }
 
     @PutMapping()
     @Operation(
             method = "PUT",
-            summary = "Update specific inventory information",
+            summary = "Update inventory information",
             tags = {ControllerConstant.INVENTORY},
             responses = {
                     @ApiResponse(description = "OK",
@@ -111,9 +124,13 @@ public class InventoryController {
                                     )))
             }
     )
-    public InventoryResponse updateInventory(@RequestBody InventoryRequest inventoryRequest) throws InventoryCreateException {
-        log.info("PUT - Update specific inventory information {}.", inventoryRequest);
-        return this.inventoryService.createOrUpdateInventory(inventoryRequest);
+    public ResponseEntity<InventoryResponse> updateInventory(@RequestBody
+                                                             @Valid
+                                                             InventoryRequest inventoryRequest) throws InventoryCreateException {
+        log.info("PUT - Update inventory information {}.", inventoryRequest);
+        InventoryResponse returnInventory = this.inventoryService.createInventory(inventoryRequest);
+
+        return ResponseEntity.ok(returnInventory);
     }
 
     @PostMapping()
@@ -138,9 +155,16 @@ public class InventoryController {
                                     )))
             }
     )
-    public InventoryResponse createOrUpdateInventory(@RequestBody InventoryRequest inventoryRequest) throws InventoryCreateException {
+    public ResponseEntity<InventoryResponse> createInventory(@RequestBody
+                                                             @Valid
+                                                             InventoryRequest inventoryRequest,
+                                                             UriComponentsBuilder uriBuilder) throws InventoryCreateException {
         log.info("POST - Create a inventory {}.", inventoryRequest);
-        return this.inventoryService.createOrUpdateInventory(inventoryRequest);
+        InventoryResponse returnInventory = this.inventoryService.createInventory(inventoryRequest);
+
+        var uri = uriBuilder.path("/inventory/{id}").buildAndExpand(returnInventory.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(returnInventory);
     }
 
     @DeleteMapping("/{id}")
@@ -162,8 +186,12 @@ public class InventoryController {
                                     )))
             }
     )
-    public void deleteInventory(@PathVariable Integer id) throws InventoryDeleteException {
+    public ResponseEntity<String> deleteInventory(@PathVariable
+                                                  @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                  Integer id) throws InventoryDeleteException {
         log.info("DELETE - Delete a inventory {}.", id);
         this.inventoryService.deleteInventory(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

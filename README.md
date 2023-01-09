@@ -37,7 +37,7 @@ Project created for study and aims to be a REST api of a CRUD:
 | Translate project to English                    | :heavy_check_mark:    | 10/10/2022 |
 | Change project name to "ecommerce"              | :heavy_check_mark:    | 11/10/2022 |
 | Include @Valid and @Validated to Controllers    | :heavy_check_mark:    | 09/01/2023 |
-| Create Handler exception controller             | :black_square_button: |            |
+| Create Handler exception controller             | :heavy_check_mark:    | 13/10/2022 |
 | Include flyway on project                       | :black_square_button: |            |
 | Create db scripts for flyway                    | :black_square_button: |            |
 | Upgrade Java version to 19                      | :black_square_button: |            |

@@ -1,19 +1,21 @@
 package br.com.ecommerce.controller;
 
+import br.com.ecommerce.controller.common.constant.ControllerConstant;
 import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
-import br.com.ecommerce.controller.common.constant.ControllerConstant;
+import br.com.ecommerce.domain.service.CustomerService;
 import br.com.ecommerce.infra.exception.CustomerCreateException;
 import br.com.ecommerce.infra.exception.CustomerDeleteException;
 import br.com.ecommerce.infra.exception.CustomerNotFoundException;
 import br.com.ecommerce.infra.handler.ErrorResponse;
-import br.com.ecommerce.domain.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,8 +24,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RestController

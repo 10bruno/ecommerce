@@ -1,0 +1,1 @@
+insert into public.product (code, category, description, title) values('ZZ781', 'tecnologia', 'Gabinete', 'Led3D');

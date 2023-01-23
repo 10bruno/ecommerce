@@ -13,6 +13,7 @@ import br.com.ecommerce.domain.repository.postgres.CustomerRepository;
 import br.com.ecommerce.controller.common.enumerated.MessageEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public CustomerResponse createCustomer(CustomerRequest customerRequest) throws CustomerCreateException {
         CustomerEntity customerEntity = customerRequestToCustomerEntityAdapter.getCustomerEntity(customerRequest);
         try {
@@ -59,6 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
     public void deleteCustomer(String cpf) throws CustomerDeleteException {
         try {
             this.customerRepository.deleteById(cpf);

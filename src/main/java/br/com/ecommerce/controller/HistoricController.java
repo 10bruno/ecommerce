@@ -3,11 +3,11 @@ package br.com.ecommerce.controller;
 import br.com.ecommerce.controller.request.HistoricRequest;
 import br.com.ecommerce.controller.response.HistoricResponse;
 import br.com.ecommerce.controller.common.constant.ControllerConstant;
-import br.com.ecommerce.infra.exception.HistoricCreateException;
-import br.com.ecommerce.infra.exception.HistoricDeleteException;
-import br.com.ecommerce.infra.exception.HistoricNotFoundException;
+import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
+import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
+import br.com.ecommerce.infra.exception.PaymentHistoricNotFoundException;
 import br.com.ecommerce.infra.handler.ErrorResponse;
-import br.com.ecommerce.domain.service.HistoricService;
+import br.com.ecommerce.domain.service.PaymentHistoricService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,11 +33,11 @@ import java.util.List;
 @Validated
 public class HistoricController {
 
-    private final HistoricService historicService;
+    private final PaymentHistoricService paymentHistoricService;
 
     @Autowired
-    public HistoricController(HistoricService historicService) {
-        this.historicService = historicService;
+    public HistoricController(PaymentHistoricService paymentHistoricService) {
+        this.paymentHistoricService = paymentHistoricService;
     }
 
     @GetMapping("/{id}")
@@ -65,9 +65,9 @@ public class HistoricController {
     public ResponseEntity<HistoricResponse> retrieveHistoric(@PathVariable
                                                              @Valid
                                                              @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
-                                                             Integer id) throws HistoricNotFoundException {
+                                                             Integer id) throws PaymentHistoricNotFoundException {
         log.info("GET - Searching for a specific historic id {}.", id);
-        HistoricResponse returnHistoric = this.historicService.retrieveHistoric(id);
+        HistoricResponse returnHistoric = this.paymentHistoricService.retrieveHistoric(id);
 
         return ResponseEntity.ok(returnHistoric);
     }
@@ -95,9 +95,9 @@ public class HistoricController {
                                     )))
             }
     )
-    public ResponseEntity<List<HistoricResponse>> retrieveListHistorics() throws HistoricNotFoundException {
+    public ResponseEntity<List<HistoricResponse>> retrieveListHistorics() throws PaymentHistoricNotFoundException {
         log.info("GET - Searching all historics.");
-        List<HistoricResponse> listHistorics = this.historicService.retrieveListHistorics();
+        List<HistoricResponse> listHistorics = this.paymentHistoricService.retrieveListHistorics();
 
         return ResponseEntity.ok(listHistorics);
     }
@@ -126,9 +126,9 @@ public class HistoricController {
     )
     public ResponseEntity<HistoricResponse> updateHistoric(@RequestBody
                                                            @Valid
-                                                           HistoricRequest historicRequest) throws HistoricCreateException {
+                                                           HistoricRequest historicRequest) throws PaymentHistoricCreateException {
         log.info("PUT - Update historic information {}", historicRequest);
-        HistoricResponse returnHistoric = this.historicService.createHistoric(historicRequest);
+        HistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(historicRequest);
 
         return ResponseEntity.ok(returnHistoric);
     }
@@ -158,9 +158,9 @@ public class HistoricController {
     public ResponseEntity<HistoricResponse> createHistoric(@RequestBody
                                                            @Valid
                                                            HistoricRequest historicRequest,
-                                                           UriComponentsBuilder uriBuilder) throws HistoricCreateException {
+                                                           UriComponentsBuilder uriBuilder) throws PaymentHistoricCreateException {
         log.info("POST - Create a historic {}", historicRequest);
-        HistoricResponse returnHistoric = this.historicService.createHistoric(historicRequest);
+        HistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(historicRequest);
 
         var uri = uriBuilder.path("/historic/{id}").buildAndExpand(returnHistoric.getId()).toUri();
 
@@ -188,9 +188,9 @@ public class HistoricController {
     )
     public ResponseEntity<String> deleteHistoric(@PathVariable
                                                  @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
-                                                 Integer id) throws HistoricDeleteException {
+                                                 Integer id) throws PaymentHistoricDeleteException {
         log.info("DELETE - Delete a historic {}", id);
-        this.historicService.deleteHistoric(id);
+        this.paymentHistoricService.deleteHistoric(id);
 
         return ResponseEntity.noContent().build();
     }

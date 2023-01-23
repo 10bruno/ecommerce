@@ -13,6 +13,7 @@ import br.com.ecommerce.controller.common.enumerated.MessageEnum;
 import br.com.ecommerce.domain.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public InventoryResponse createInventory(InventoryRequest inventoryRequest) throws InventoryCreateException {
         InventoryEntity inventoryEntity = inventoryRequestToInventoryEntityAdapter.getInventoryEntity(inventoryRequest);
         try {
@@ -60,6 +62,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public void deleteInventory(Integer id) throws InventoryDeleteException {
         try {
             this.inventoryRepository.deleteById(id);

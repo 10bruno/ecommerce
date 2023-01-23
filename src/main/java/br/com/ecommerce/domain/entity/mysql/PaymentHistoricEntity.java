@@ -1,10 +1,10 @@
 package br.com.ecommerce.domain.entity.mysql;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;

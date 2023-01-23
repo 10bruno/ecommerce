@@ -59,7 +59,7 @@ class CustomerServiceTest {
 
 
         CustomerNotFoundException exception =
-                assertThrows(CustomerNotFoundException.class., () ->
+                assertThrows(CustomerNotFoundException.class, () ->
                         repository.findById(TestConstants.CPF)
                                 .orElseThrow(() ->
                                         new CustomerNotFoundException(MessageEnum.CUSTOMER_NOT_FOUND_EXCEPTION.getValue(), new Exception())), MessageEnum.CUSTOMER_NOT_FOUND_EXCEPTION.getValue());

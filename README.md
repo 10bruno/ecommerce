@@ -20,6 +20,7 @@ Project created for study and aims to be a REST api of a CRUD:
 * Flyway
 * Handler exceptions
 * Work with parameterizations
+* Use of RedisDB
 
 ---
 
@@ -38,19 +39,22 @@ Project created for study and aims to be a REST api of a CRUD:
 | Change project name to "ecommerce"              | :heavy_check_mark:    | 11/10/2022 |
 | Include @Valid and @Validated to Controllers    | :heavy_check_mark:    | 09/01/2023 |
 | Create Handler exception controller             | :heavy_check_mark:    | 13/10/2022 |
-| Include flyway on project                       | :black_square_button: |            |
+| Include flyway on project                       | :heavy_check_mark:    | 23/01/2023 |
 | Create db scripts for flyway                    | :black_square_button: |            |
 | Upgrade Java version to 19                      | :black_square_button: |            |
 | Upgrade Spring version to 3.0.1                 | :black_square_button: |            |
 | Study implementation of the record type         | :black_square_button: |            |
+| Implement Spring Security                       | :black_square_button: |            |
+| Create cache on RedisDB                         | :black_square_button: |            |
 
 ---
 
 ### Local execution
 
-* Url Swagger = http://localhost:8080/ecommerce/swagger-ui/index.html#/
-
+* Url Swagger: http://localhost:8080/ecommerce/swagger-ui/index.html#/
+* Include to VM Options: -Dspring.profiles.active=local
 
 ### References
 
 * https://springdoc.org/#swagger-ui-properties
+* https://docs.spring.io/spring-security/reference/reactive/authorization/authorize-http-requests.html

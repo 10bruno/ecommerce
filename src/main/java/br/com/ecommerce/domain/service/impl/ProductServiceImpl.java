@@ -13,6 +13,7 @@ import br.com.ecommerce.domain.entity.postgres.ProductEntity;
 import br.com.ecommerce.domain.repository.postgres.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponse createProduct(ProductRequest productRequest) throws ProductCreateException {
         ProductEntity productEntity = productRequestToProductEntityAdapter.getProductEntity(productRequest);
         try {
@@ -60,6 +62,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void deleteProduct(String id) throws ProductDeleteException {
         try {
             this.productRepository.deleteById(id);

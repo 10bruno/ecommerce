@@ -6,11 +6,15 @@ spring:
       hibernate:
         ddl-auto: validate
 
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
 postgres:
   datasource:
-    jdbc-url: jdbc:postgresql://kesavan.db.elephantsql.com:5432/ijhrxdvd
-    username: ijhrxdvd
-    password: bXdwiCrTh4jcwlRrRSBt5qaLxHi8rwAn
+    jdbc-url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: teste
     driverClassName: org.postgresql.Driver
 
 mysql:

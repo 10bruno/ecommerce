@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(name = "payment_historic")
-public class HistoricEntity implements Serializable {
+public class PaymentHistoricEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 112L;

@@ -3,7 +3,7 @@ package br.com.ecommerce.util;
 import br.com.ecommerce.controller.request.HistoricRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
 import br.com.ecommerce.controller.response.HistoricResponse;
-import br.com.ecommerce.domain.entity.mysql.HistoricEntity;
+import br.com.ecommerce.domain.entity.mysql.PaymentHistoricEntity;
 import br.com.ecommerce.domain.entity.postgres.CustomerEntity;
 
 import java.time.LocalDate;
@@ -11,8 +11,8 @@ import java.util.List;
 
 public class MockBuilders {
 
-    public static HistoricEntity buildHistoric() {
-        return new HistoricEntity(TestConstants.ID_1, TestConstants.FULL_DESCRIPTION, TestConstants.DEBIT_TYPE, LocalDate.now());
+    public static PaymentHistoricEntity buildHistoric() {
+        return new PaymentHistoricEntity(TestConstants.ID_1, TestConstants.FULL_DESCRIPTION, TestConstants.DEBIT_TYPE, LocalDate.now());
     }
 
     public static HistoricResponse getHistoricResponseFirst() {

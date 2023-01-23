@@ -24,7 +24,7 @@ public class GenericExceptionHandler {
 
     @ExceptionHandler(
             {CustomerNotFoundException.class,
-                    HistoricNotFoundException.class,
+                    PaymentHistoricNotFoundException.class,
                     InventoryNotFoundException.class,
                     ProductNotFoundException.class})
     public ResponseEntity<Object> handleExceptionNotFound(Exception exception, Throwable cause) {
@@ -33,7 +33,7 @@ public class GenericExceptionHandler {
 
     @ExceptionHandler(
             {CustomerCreateException.class,
-                    HistoricCreateException.class,
+                    PaymentHistoricCreateException.class,
                     InventoryCreateException.class,
                     ProductCreateException.class})
     public ResponseEntity<Object> handleExceptionInternalError(Exception exception, Throwable cause) {

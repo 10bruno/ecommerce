@@ -51,6 +51,11 @@ Project created for study and aims to be a REST api of a CRUD:
 
 ---
 
+### Pre-requisites
+
+* Install Docker Engine and Docker Compose as standalone binaries
+* Install Docker Desktop which includes both Docker Engine and Docker Compose
+
 ### Local execution
 
 * Url Swagger: http://localhost:8080/ecommerce/swagger-ui/index.html#/

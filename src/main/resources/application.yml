@@ -13,8 +13,8 @@ spring:
 postgres:
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: teste
+    username: root
+    password: root
     driverClassName: org.postgresql.Driver
 
 mysql:

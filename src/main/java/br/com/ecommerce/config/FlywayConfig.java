@@ -19,7 +19,7 @@ public class FlywayConfig {
     public void migrateFlyway() {
         Flyway flywayIntegration = Flyway.configure()
                 .dataSource(firstDatasourceUrl, firstDatasourceUser, firstDatasourcePassword)
-                .locations("filesystem:./src/main/resources/db/postgresql/")
+                .locations("filesystem:./src/main/resources/db/postgresql/flyway/")
                 .baselineOnMigrate(true)
                 .load();
 

@@ -17,10 +17,8 @@ services:
     restart: always
     container_name: postgresdb
     environment:
+      POSTGRES_DATABASE: pagamentos
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: pagamentos
-    volumes:
-      - ./db/postgresql/docker:/docker-entrypoint-initdb.d/
     ports:
       - "5432:5432"

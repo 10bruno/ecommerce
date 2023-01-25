@@ -63,5 +63,12 @@ Project created for study and aims to be a REST api of a CRUD:
 
 ### References
 
-* https://springdoc.org/#swagger-ui-properties
+* https://springdoc.org/v2/#swagger-ui-properties
+* https://springdoc.org/v2/
+  - org.springdoc:springdoc-openapi-ui:1.6.14 springboot 2x
+  - org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2 springboot 3x
+* https://stackoverflow.com/questions/74701738/spring-boot-3-springdoc-openapi-ui-doesnt-work
 * https://docs.spring.io/spring-security/reference/reactive/authorization/authorize-http-requests.html
+
+
+

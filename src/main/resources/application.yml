@@ -27,13 +27,10 @@ mysql:
 
 spring-doc:
   swagger-ui:
-    query-config-enabled: true
     path: /swagger-ui.html
     doc-expansion: none
     tags-sorter: alpha
     operations-sorter: alpha
-  api-docs:
-    path: /swagger-ui.html
 
 parameter:
   example:

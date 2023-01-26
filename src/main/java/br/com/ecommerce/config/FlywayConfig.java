@@ -16,10 +16,28 @@ public class FlywayConfig {
     String firstDatasourcePassword;
 
     @PostConstruct
-    public void migrateFlyway() {
+    public void migrateFirstFlyway() {
         Flyway flywayIntegration = Flyway.configure()
                 .dataSource(firstDatasourceUrl, firstDatasourceUser, firstDatasourcePassword)
                 .locations("filesystem:./src/main/resources/db/postgresql/flyway/")
+                .baselineOnMigrate(true)
+                .load();
+
+        flywayIntegration.migrate();
+    }
+
+    @Value("${mysql.datasource.jdbc-url}")
+    String secondDatasourceUrl;
+    @Value("${mysql.datasource.username}")
+    String secondDatasourceUser;
+    @Value("${mysql.datasource.password}")
+    String secondDatasourcePassword;
+
+    @PostConstruct
+    public void migrateSecondtFlyway() {
+        Flyway flywayIntegration = Flyway.configure()
+                .dataSource(secondDatasourceUrl, secondDatasourceUser, secondDatasourcePassword)
+                .locations("filesystem:./src/main/resources/db/mysql/flyway/")
                 .baselineOnMigrate(true)
                 .load();
 

@@ -41,10 +41,10 @@ Project created for study and aims to be a REST api of a CRUD:
 | Upgrade Gradle version to 7.6                   | :heavy_check_mark:    | 23/01/2023 |
 | Upgrade Java version to 19                      | :heavy_check_mark:    | 23/01/2023 |
 | Upgrade Spring version to 3.0.2                 | :heavy_check_mark:    | 23/01/2023 |
-| Create a local Docker for Mysql                 | :black_square_button: |            |
-| Create a local Docker for Postgresql            | :black_square_button: |            |
+| Create a local Docker for Mysql                 | :heavy_check_mark:    | 26/05/2024 |
+| Create a local Docker for Postgresql            | :heavy_check_mark:    | 26/05/2024 |
+| Create db scripts for flyway                    | :heavy_check_mark:    | 26/05/2024 |
 | Finish unit tests                               | :black_square_button: |            |
-| Create db scripts for flyway                    | :black_square_button: |            |
 | Implement Spring Security                       | :black_square_button: |            |
 | Create cache on RedisDB                         | :black_square_button: |            |
 | Study implementation of the record type         | :black_square_button: |            |

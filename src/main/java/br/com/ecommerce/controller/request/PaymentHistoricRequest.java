@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class HistoricRequest {
+public class PaymentHistoricRequest {
     @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
     private Integer id;
     @NotBlank(message = "Description is required.")

@@ -1,8 +1,8 @@
 package br.com.ecommerce.util;
 
-import br.com.ecommerce.controller.request.HistoricRequest;
+import br.com.ecommerce.controller.request.PaymentHistoricRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
-import br.com.ecommerce.controller.response.HistoricResponse;
+import br.com.ecommerce.controller.response.PaymentHistoricResponse;
 import br.com.ecommerce.domain.entity.mysql.PaymentHistoricEntity;
 import br.com.ecommerce.domain.entity.postgres.CustomerEntity;
 
@@ -15,8 +15,8 @@ public class MockBuilders {
         return new PaymentHistoricEntity(TestConstants.ID_1, TestConstants.FULL_DESCRIPTION, TestConstants.DEBIT_TYPE, LocalDate.now());
     }
 
-    public static HistoricResponse getHistoricResponseFirst() {
-        return HistoricResponse.builder()
+    public static PaymentHistoricResponse getHistoricResponseFirst() {
+        return PaymentHistoricResponse.builder()
                 .id(TestConstants.ID_1)
                 .type(TestConstants.DEBIT_TYPE)
                 .description(TestConstants.FULL_DESCRIPTION)
@@ -24,8 +24,8 @@ public class MockBuilders {
                 .build();
     }
 
-    public static HistoricResponse getHistoricResponseSecond() {
-        return HistoricResponse.builder()
+    public static PaymentHistoricResponse getHistoricResponseSecond() {
+        return PaymentHistoricResponse.builder()
                 .id(TestConstants.ID_2)
                 .type(TestConstants.CREDIT_TYPE)
                 .description(TestConstants.FULL_DESCRIPTION)
@@ -33,12 +33,12 @@ public class MockBuilders {
                 .build();
     }
 
-    public static List<HistoricResponse> buildListHistoricResponse() {
+    public static List<PaymentHistoricResponse> buildListHistoricResponse() {
         return List.of(getHistoricResponseFirst(), getHistoricResponseSecond());
     }
 
-    public static HistoricRequest buildHistoricRequest() {
-        return HistoricRequest
+    public static PaymentHistoricRequest buildHistoricRequest() {
+        return PaymentHistoricRequest
                 .builder()
                 .id(TestConstants.ID_1)
                 .type(TestConstants.DEBIT_TYPE)

@@ -5,6 +5,7 @@ spring:
     properties:
       hibernate:
         ddl-auto: validate
+        format-sql: true
 
   flyway:
     enabled: true
@@ -12,16 +13,16 @@ spring:
 
 postgres:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: teste
+    jdbc-url: jdbc:postgresql://localhost:5432/pagamentos
+    username: pagamentos
+    password: pagamentos
     driverClassName: org.postgresql.Driver
 
 mysql:
   datasource:
     jdbc-url: jdbc:mysql://localhost:3306/pagamentos
     username: root
-    password: Jj347189#
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
 
 spring-doc:

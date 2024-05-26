@@ -1,9 +1,9 @@
 package br.com.ecommerce.domain.service.impl;
 
-import br.com.ecommerce.adapter.toresponse.HistoricEntityToResponseAdapter;
-import br.com.ecommerce.adapter.toentity.HistoricRequestToHistoricEntityAdapter;
-import br.com.ecommerce.controller.request.HistoricRequest;
-import br.com.ecommerce.controller.response.HistoricResponse;
+import br.com.ecommerce.adapter.toresponse.PaymentHistoricEntityToResponseAdapter;
+import br.com.ecommerce.adapter.toentity.PaymentHistoricRequestToHistoricEntityAdapter;
+import br.com.ecommerce.controller.request.PaymentHistoricRequest;
+import br.com.ecommerce.controller.response.PaymentHistoricResponse;
 import br.com.ecommerce.domain.service.PaymentHistoricService;
 import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
 import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
@@ -22,45 +22,45 @@ import java.util.List;
 public class PaymentHistoricServiceImpl implements PaymentHistoricService {
 
     private final PaymentHistoricRepository paymentHistoricRepository;
-    private final HistoricRequestToHistoricEntityAdapter historicRequestToHistoricEntityAdapter;
-    private final HistoricEntityToResponseAdapter historicEntityToResponseAdapter;
+    private final PaymentHistoricRequestToHistoricEntityAdapter paymentHistoricRequestToHistoricEntityAdapter;
+    private final PaymentHistoricEntityToResponseAdapter paymentHistoricEntityToResponseAdapter;
 
     @Autowired
-    public PaymentHistoricServiceImpl(PaymentHistoricRepository paymentHistoricRepository, HistoricRequestToHistoricEntityAdapter historicRequestToHistoricEntityAdapter, HistoricEntityToResponseAdapter historicEntityToResponseAdapter) {
+    public PaymentHistoricServiceImpl(PaymentHistoricRepository paymentHistoricRepository, PaymentHistoricRequestToHistoricEntityAdapter paymentHistoricRequestToHistoricEntityAdapter, PaymentHistoricEntityToResponseAdapter paymentHistoricEntityToResponseAdapter) {
         this.paymentHistoricRepository = paymentHistoricRepository;
-        this.historicRequestToHistoricEntityAdapter = historicRequestToHistoricEntityAdapter;
-        this.historicEntityToResponseAdapter = historicEntityToResponseAdapter;
+        this.paymentHistoricRequestToHistoricEntityAdapter = paymentHistoricRequestToHistoricEntityAdapter;
+        this.paymentHistoricEntityToResponseAdapter = paymentHistoricEntityToResponseAdapter;
     }
 
     @Override
-    public HistoricResponse retrieveHistoric(Integer id) throws PaymentHistoricNotFoundException {
+    public PaymentHistoricResponse retrieveHistoric(Integer id) throws PaymentHistoricNotFoundException {
         PaymentHistoricEntity paymentHistoricEntity =
                 paymentHistoricRepository.findById(id)
-                        .orElseThrow(() -> new PaymentHistoricNotFoundException(MessageEnum.HISTORIC_NOT_FOUND_EXCEPTION.getValue(), new Exception()));
+                        .orElseThrow(() -> new PaymentHistoricNotFoundException(MessageEnum.PAYMENT_HISTORIC_NOT_FOUND_EXCEPTION.getValue(), new Exception()));
 
-        return historicEntityToResponseAdapter.getHistoricResponse(paymentHistoricEntity);
+        return paymentHistoricEntityToResponseAdapter.getHistoricResponse(paymentHistoricEntity);
     }
 
     @Override
-    public List<HistoricResponse> retrieveListHistorics() throws PaymentHistoricNotFoundException {
+    public List<PaymentHistoricResponse> retrieveListHistorics() throws PaymentHistoricNotFoundException {
         List<PaymentHistoricEntity> paymentHistoricEntityList = paymentHistoricRepository.findAll();
         if (paymentHistoricEntityList.isEmpty())
-            throw new PaymentHistoricNotFoundException(MessageEnum.HISTORIC_LIST_NOT_FOUND_EXCEPTION.getValue(), new Exception());
+            throw new PaymentHistoricNotFoundException(MessageEnum.PAYMENT_HISTORIC_LIST_NOT_FOUND_EXCEPTION.getValue(), new Exception());
 
-        return historicEntityToResponseAdapter.buildListHistoricResponse(paymentHistoricEntityList);
+        return paymentHistoricEntityToResponseAdapter.buildListHistoricResponse(paymentHistoricEntityList);
     }
 
     @Override
     @Transactional
-    public HistoricResponse createHistoric(HistoricRequest historicRequest) throws PaymentHistoricCreateException {
-        historicRequest.setDate(LocalDate.now());
-        PaymentHistoricEntity paymentHistoricEntity = historicRequestToHistoricEntityAdapter.getHistoricEntity(historicRequest);
+    public PaymentHistoricResponse createHistoric(PaymentHistoricRequest paymentHistoricRequest) throws PaymentHistoricCreateException {
+        paymentHistoricRequest.setDate(LocalDate.now());
+        PaymentHistoricEntity paymentHistoricEntity = paymentHistoricRequestToHistoricEntityAdapter.getHistoricEntity(paymentHistoricRequest);
 
         try {
             PaymentHistoricEntity paymentHistoricEntitySaved = this.paymentHistoricRepository.save(paymentHistoricEntity);
-            return historicEntityToResponseAdapter.getHistoricResponse(paymentHistoricEntitySaved);
+            return paymentHistoricEntityToResponseAdapter.getHistoricResponse(paymentHistoricEntitySaved);
         } catch (Exception exception) {
-            throw new PaymentHistoricCreateException(MessageEnum.HISTORIC_ERROR_ON_CREATE_EXCEPTION.getValue(), exception);
+            throw new PaymentHistoricCreateException(MessageEnum.PAYMENT_HISTORIC_ERROR_ON_CREATE_EXCEPTION.getValue(), exception);
         }
     }
 
@@ -70,7 +70,7 @@ public class PaymentHistoricServiceImpl implements PaymentHistoricService {
         try {
             this.paymentHistoricRepository.deleteById(id);
         } catch (Exception exception) {
-            throw new PaymentHistoricDeleteException(MessageEnum.HISTORIC_ERROR_ON_DELETE_EXCEPTION.getValue(), exception);
+            throw new PaymentHistoricDeleteException(MessageEnum.PAYMENT_HISTORIC_ERROR_ON_DELETE_EXCEPTION.getValue(), exception);
         }
     }
 }

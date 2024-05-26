@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -64,7 +64,7 @@ public class InventoryController {
     )
     public ResponseEntity<InventoryResponse> retrieveInventory(@PathVariable
                                                                @Valid
-                                                               @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                               @Positive
                                                                Integer id) throws InventoryNotFoundException {
         log.info("GET - Searching for a specific inventory id {}.", id);
         InventoryResponse returnInventory = this.inventoryService.retrieveInventory(id);
@@ -187,7 +187,7 @@ public class InventoryController {
             }
     )
     public ResponseEntity<String> deleteInventory(@PathVariable
-                                                  @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                  @Positive
                                                   Integer id) throws InventoryDeleteException {
         log.info("DELETE - Delete a inventory {}.", id);
         this.inventoryService.deleteInventory(id);

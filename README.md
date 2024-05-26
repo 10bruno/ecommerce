@@ -51,12 +51,25 @@ Project created for study and aims to be a REST api of a CRUD:
 
 ---
 
+### Pre-requisites
+
+* Install Docker Engine and Docker Compose as standalone binaries
+* Install Docker Desktop which includes both Docker Engine and Docker Compose
+
 ### Local execution
 
-* Url Swagger: http://localhost:8080/ecommerce/swagger-ui/index.html#/
+* Navigate to the project root and start docker_compose to generate a local database
+* command: **docker compose up**
+* After creating the database, start the application
 * Include to VM Options: -Dspring.profiles.active=local
+* Url Swagger: http://localhost:8080/ecommerce/swagger-ui/index.html#/
+
 
 ### References
 
-* https://springdoc.org/#swagger-ui-properties
+* https://springdoc.org/v2/#swagger-ui-properties
+* https://springdoc.org/v2/
+  - org.springdoc:springdoc-openapi-ui:1.6.14 springboot 2x
+  - org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2 springboot 3x
+* https://stackoverflow.com/questions/74701738/spring-boot-3-springdoc-openapi-ui-doesnt-work
 * https://docs.spring.io/spring-security/reference/reactive/authorization/authorize-http-requests.html

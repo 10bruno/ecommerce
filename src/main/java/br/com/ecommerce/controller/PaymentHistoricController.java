@@ -1,8 +1,8 @@
 package br.com.ecommerce.controller;
 
 import br.com.ecommerce.controller.common.constant.ControllerConstant;
-import br.com.ecommerce.controller.request.HistoricRequest;
-import br.com.ecommerce.controller.response.HistoricResponse;
+import br.com.ecommerce.controller.request.PaymentHistoricRequest;
+import br.com.ecommerce.controller.response.PaymentHistoricResponse;
 import br.com.ecommerce.domain.service.PaymentHistoricService;
 import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
 import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,15 +28,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/historic")
-@Tag(name = ControllerConstant.HISTORIC, description = "CRUD of the historic service.")
+@Tag(name = ControllerConstant.PAYMENT_HISTORIC, description = "CRUD of the historic service.")
 @Slf4j
 @Validated
-public class HistoricController {
+public class PaymentHistoricController {
 
     private final PaymentHistoricService paymentHistoricService;
 
     @Autowired
-    public HistoricController(PaymentHistoricService paymentHistoricService) {
+    public PaymentHistoricController(PaymentHistoricService paymentHistoricService) {
         this.paymentHistoricService = paymentHistoricService;
     }
 
@@ -44,14 +44,14 @@ public class HistoricController {
     @Operation(
             method = "GET",
             summary = "Retrieve a historic by id",
-            tags = {ControllerConstant.HISTORIC},
+            tags = {ControllerConstant.PAYMENT_HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = HistoricResponse.class
+                                            implementation = PaymentHistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Not Found",
                             responseCode = "404",
@@ -62,12 +62,12 @@ public class HistoricController {
                                     )))
             }
     )
-    public ResponseEntity<HistoricResponse> retrieveHistoric(@PathVariable
+    public ResponseEntity<PaymentHistoricResponse> retrieveHistoric(@PathVariable
                                                              @Valid
-                                                             @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                             @Positive
                                                              Integer id) throws PaymentHistoricNotFoundException {
         log.info("GET - Searching for a specific historic id {}.", id);
-        HistoricResponse returnHistoric = this.paymentHistoricService.retrieveHistoric(id);
+        PaymentHistoricResponse returnHistoric = this.paymentHistoricService.retrieveHistoric(id);
 
         return ResponseEntity.ok(returnHistoric);
     }
@@ -76,7 +76,7 @@ public class HistoricController {
     @Operation(
             method = "GET",
             summary = "Retrieve a list of historics",
-            tags = {ControllerConstant.HISTORIC},
+            tags = {ControllerConstant.PAYMENT_HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
@@ -84,7 +84,7 @@ public class HistoricController {
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     array = @ArraySchema(
                                             schema = @Schema(
-                                                    implementation = HistoricResponse.class
+                                                    implementation = PaymentHistoricResponse.class
                                             )))),
                     @ApiResponse(description = "Not Found",
                             responseCode = "404",
@@ -95,9 +95,9 @@ public class HistoricController {
                                     )))
             }
     )
-    public ResponseEntity<List<HistoricResponse>> retrieveListHistorics() throws PaymentHistoricNotFoundException {
+    public ResponseEntity<List<PaymentHistoricResponse>> retrieveListHistorics() throws PaymentHistoricNotFoundException {
         log.info("GET - Searching all historics.");
-        List<HistoricResponse> listHistorics = this.paymentHistoricService.retrieveListHistorics();
+        List<PaymentHistoricResponse> listHistorics = this.paymentHistoricService.retrieveListHistorics();
 
         return ResponseEntity.ok(listHistorics);
     }
@@ -106,14 +106,14 @@ public class HistoricController {
     @Operation(
             method = "PUT",
             summary = "Update historic information",
-            tags = {ControllerConstant.HISTORIC},
+            tags = {ControllerConstant.PAYMENT_HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = HistoricResponse.class
+                                            implementation = PaymentHistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -124,11 +124,11 @@ public class HistoricController {
                                     )))
             }
     )
-    public ResponseEntity<HistoricResponse> updateHistoric(@RequestBody
+    public ResponseEntity<PaymentHistoricResponse> updateHistoric(@RequestBody
                                                            @Valid
-                                                           HistoricRequest historicRequest) throws PaymentHistoricCreateException {
-        log.info("PUT - Update historic information {}", historicRequest);
-        HistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(historicRequest);
+                                                                  PaymentHistoricRequest paymentHistoricRequest) throws PaymentHistoricCreateException {
+        log.info("PUT - Update historic information {}", paymentHistoricRequest);
+        PaymentHistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(paymentHistoricRequest);
 
         return ResponseEntity.ok(returnHistoric);
     }
@@ -137,14 +137,14 @@ public class HistoricController {
     @Operation(
             method = "POST",
             summary = "Create a historic",
-            tags = {ControllerConstant.HISTORIC},
+            tags = {ControllerConstant.PAYMENT_HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
                                     schema = @Schema(
-                                            implementation = HistoricResponse.class
+                                            implementation = PaymentHistoricResponse.class
                                     ))),
                     @ApiResponse(description = "Internal Server Error",
                             responseCode = "500",
@@ -155,12 +155,12 @@ public class HistoricController {
                                     )))
             }
     )
-    public ResponseEntity<HistoricResponse> createHistoric(@RequestBody
+    public ResponseEntity<PaymentHistoricResponse> createHistoric(@RequestBody
                                                            @Valid
-                                                           HistoricRequest historicRequest,
-                                                           UriComponentsBuilder uriBuilder) throws PaymentHistoricCreateException {
-        log.info("POST - Create a historic {}", historicRequest);
-        HistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(historicRequest);
+                                                                      PaymentHistoricRequest paymentHistoricRequest,
+                                                                  UriComponentsBuilder uriBuilder) throws PaymentHistoricCreateException {
+        log.info("POST - Create a historic {}", paymentHistoricRequest);
+        PaymentHistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(paymentHistoricRequest);
 
         var uri = uriBuilder.path("/historic/{id}").buildAndExpand(returnHistoric.getId()).toUri();
 
@@ -171,7 +171,7 @@ public class HistoricController {
     @Operation(
             method = "DELETE",
             summary = "Delete a historic",
-            tags = {ControllerConstant.HISTORIC},
+            tags = {ControllerConstant.PAYMENT_HISTORIC},
             responses = {
                     @ApiResponse(description = "OK",
                             responseCode = ControllerConstant.HTTP_STATUS_CODE_OK,
@@ -187,7 +187,7 @@ public class HistoricController {
             }
     )
     public ResponseEntity<String> deleteHistoric(@PathVariable
-                                                 @Pattern(regexp = "^\\d*$", message = "Id must have only numbers.")
+                                                 @Positive
                                                  Integer id) throws PaymentHistoricDeleteException {
         log.info("DELETE - Delete a historic {}", id);
         this.paymentHistoricService.deleteHistoric(id);

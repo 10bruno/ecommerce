@@ -6,7 +6,7 @@ public class ControllerConstant {
     }
 
     public static final String CUSTOMER = "Customer";
-    public static final String HISTORIC = "Historic";
+    public static final String PAYMENT_HISTORIC = "PaymentHistoric";
     public static final String INVENTORY = "Inventory";
     public static final String PARAMETER = "Parameter";
     public static final String PRODUCT = "Product";

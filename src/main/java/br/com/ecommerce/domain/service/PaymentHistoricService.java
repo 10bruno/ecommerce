@@ -1,7 +1,7 @@
 package br.com.ecommerce.domain.service;
 
-import br.com.ecommerce.controller.request.HistoricRequest;
-import br.com.ecommerce.controller.response.HistoricResponse;
+import br.com.ecommerce.controller.request.PaymentHistoricRequest;
+import br.com.ecommerce.controller.response.PaymentHistoricResponse;
 import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
 import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
 import br.com.ecommerce.infra.exception.PaymentHistoricNotFoundException;
@@ -9,11 +9,11 @@ import br.com.ecommerce.infra.exception.PaymentHistoricNotFoundException;
 import java.util.List;
 
 public interface PaymentHistoricService {
-    HistoricResponse retrieveHistoric(Integer id) throws PaymentHistoricNotFoundException;
+    PaymentHistoricResponse retrieveHistoric(Integer id) throws PaymentHistoricNotFoundException;
 
-    List<HistoricResponse> retrieveListHistorics() throws PaymentHistoricNotFoundException;
+    List<PaymentHistoricResponse> retrieveListHistorics() throws PaymentHistoricNotFoundException;
 
-    HistoricResponse createHistoric(HistoricRequest historicRequest) throws PaymentHistoricCreateException;
+    PaymentHistoricResponse createHistoric(PaymentHistoricRequest paymentHistoricRequest) throws PaymentHistoricCreateException;
 
     void deleteHistoric(Integer id) throws PaymentHistoricDeleteException;
 }

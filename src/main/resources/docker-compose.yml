@@ -1,0 +1,26 @@
+version: "3.9"
+name: "dblocal"
+services:
+  mysqldb:
+    image: mysql
+    restart: always
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pagamentos
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    ports:
+      - "3306:3306"
+  postgresdb:
+    image: postgres
+    restart: always
+    container_name: postgresdb
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: pagamentos
+    volumes:
+      - ./db/postgresql/docker:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"

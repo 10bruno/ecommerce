@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class HistoricResponse {
+public class PaymentHistoricResponse {
     private Integer id;
     private String description;
     private String type;

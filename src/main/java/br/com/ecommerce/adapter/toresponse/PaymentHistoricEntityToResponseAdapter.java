@@ -1,15 +1,15 @@
 package br.com.ecommerce.adapter.toresponse;
 
-import br.com.ecommerce.controller.response.HistoricResponse;
+import br.com.ecommerce.controller.response.PaymentHistoricResponse;
 import br.com.ecommerce.domain.entity.mysql.PaymentHistoricEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class HistoricEntityToResponseAdapter {
-    public HistoricResponse getHistoricResponse(PaymentHistoricEntity paymentHistoricEntity) {
-        return HistoricResponse.builder()
+public class PaymentHistoricEntityToResponseAdapter {
+    public PaymentHistoricResponse getHistoricResponse(PaymentHistoricEntity paymentHistoricEntity) {
+        return PaymentHistoricResponse.builder()
                 .id(paymentHistoricEntity.getId())
                 .type(paymentHistoricEntity.getType())
                 .description(paymentHistoricEntity.getDescription())
@@ -17,7 +17,7 @@ public class HistoricEntityToResponseAdapter {
                 .build();
     }
 
-    public List<HistoricResponse> buildListHistoricResponse(List<PaymentHistoricEntity> paymentHistoricEntityList) {
+    public List<PaymentHistoricResponse> buildListHistoricResponse(List<PaymentHistoricEntity> paymentHistoricEntityList) {
         return paymentHistoricEntityList.stream()
                 .map(this::getHistoricResponse)
                 .toList();

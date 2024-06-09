@@ -1,13 +1,13 @@
 /*
 package br.com.ecommerce.controller;
 
-import br.com.ecommerce.infra.exception.HistoricDeleteException;
-import br.com.ecommerce.domain.entity.mysql.HistoricEntity;
-import br.com.ecommerce.domain.service.HistoricService;
-import br.com.ecommerce.controller.request.HistoricRequest;
-import br.com.ecommerce.controller.response.HistoricResponse;
-import br.com.ecommerce.infra.exception.HistoricCreateException;
-import br.com.ecommerce.infra.exception.HistoricNotFoundException;
+import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
+import br.com.ecommerce.domain.entity.mysql.PaymentHistoricEntity;
+import br.com.ecommerce.domain.service.PaymentHistoricService;
+import br.com.ecommerce.controller.request.PaymentHistoricRequest;
+import br.com.ecommerce.controller.response.PaymentHistoricResponse;
+import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
+import br.com.ecommerce.infra.exception.PaymentHistoricNotFoundException;
 import br.com.ecommerce.util.MockBuilders;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,58 +24,58 @@ import static org.mockito.Mockito.*;
 class HistoricControllerTest {
 
     @InjectMocks
-    private HistoricController historicController;
+    private PaymentHistoricController historicController;
 
     @Mock
-    private HistoricService historicService;
+    private PaymentHistoricService historicService;
 
     @Test
-    void shouldReturnHistory_whenSucess() throws HistoricNotFoundException {
-        HistoricResponse historicResponse = MockBuilders.getHistoricResponseFirst();
+    void shouldReturnHistory_whenSucess() throws PaymentHistoricNotFoundException {
+        PaymentHistoricResponse historicResponse = MockBuilders.getHistoricResponseFirst();
         when(this.historicService.retrieveHistoric(historicResponse.getId())).thenReturn(historicResponse);
 
-        HistoricResponse historicReturn = this.historicController.retrieveHistoric(historicResponse.getId());
+        PaymentHistoricResponse historicReturn = this.historicController.retrieveHistoric(historicResponse.getId());
 
         Assertions.assertEquals(historicResponse, historicReturn);
     }
 
     @Test
-    void shouldReturnListHistorics_whenSucess() throws HistoricNotFoundException {
-        List<HistoricResponse> historicResponseList = MockBuilders.buildListHistoricResponse();
+    void shouldReturnListHistorics_whenSucess() throws PaymentHistoricNotFoundException {
+        List<PaymentHistoricResponse> historicResponseList = MockBuilders.buildListHistoricResponse();
         when(this.historicService.retrieveListHistorics()).thenReturn(historicResponseList);
 
-        List<HistoricResponse> historicResponseListReturn = this.historicController.retrieveListHistorics();
+        List<PaymentHistoricResponse> historicResponseListReturn = this.historicController.retrieveListHistorics();
 
         Assertions.assertEquals(historicResponseList, historicResponseListReturn);
         Assertions.assertEquals(2, historicResponseList.size());
     }
 
     @Test
-    void shouldUpdateHistoric() throws HistoricCreateException {
-        HistoricRequest historicRequest = MockBuilders.buildHistoricRequest();
-        HistoricResponse historicResponse = MockBuilders.getHistoricResponseFirst();
+    void shouldUpdateHistoric() throws PaymentHistoricCreateException {
+        PaymentHistoricRequest historicRequest = MockBuilders.buildHistoricRequest();
+        PaymentHistoricResponse historicResponse = MockBuilders.getHistoricResponseFirst();
         when(this.historicService.createHistoric(historicRequest)).thenReturn(historicResponse);
 
-        HistoricResponse historicResponseReturn = this.historicController.updateHistoric(historicRequest);
+        PaymentHistoricResponse historicResponseReturn = this.historicController.updateHistoric(historicRequest);
 
         Assertions.assertEquals(historicResponse, historicResponseReturn);
     }
 
     @Test
-    void shouldCreateHistoric() throws HistoricCreateException {
-        HistoricRequest historicRequest = MockBuilders.buildHistoricRequest();
-        HistoricResponse historicResponse = MockBuilders.getHistoricResponseSecond();
+    void shouldCreateHistoric() throws PaymentHistoricCreateException {
+        PaymentHistoricRequest historicRequest = MockBuilders.buildHistoricRequest();
+        PaymentHistoricResponse historicResponse = MockBuilders.getHistoricResponseSecond();
         when(this.historicService.createHistoric(historicRequest)).thenReturn(historicResponse);
 
-        HistoricResponse historicResponseReturn = this.historicController.createHistoric(historicRequest);
+        PaymentHistoricResponse historicResponseReturn = this.historicController.createHistoric(historicRequest);
 
         Assertions.assertEquals(historicResponse, historicResponseReturn);
     }
 
 
     @Test
-    void shouldDeleteHistoric() throws HistoricDeleteException {
-        HistoricEntity historicEntity = MockBuilders.buildHistoric();
+    void shouldDeleteHistoric() throws PaymentHistoricDeleteException {
+        PaymentHistoricEntity historicEntity = MockBuilders.buildHistoric();
         doNothing().when(this.historicService).deleteHistoric(historicEntity.getId());
 
         this.historicController.deleteHistoric(historicEntity.getId());

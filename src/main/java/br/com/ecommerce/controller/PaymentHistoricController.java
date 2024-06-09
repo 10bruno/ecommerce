@@ -27,7 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("/historic")
+@RequestMapping("/payment-historic")
 @Tag(name = ControllerConstant.PAYMENT_HISTORIC, description = "CRUD of the historic service.")
 @Slf4j
 @Validated
@@ -63,9 +63,9 @@ public class PaymentHistoricController {
             }
     )
     public ResponseEntity<PaymentHistoricResponse> retrieveHistoric(@PathVariable
-                                                             @Valid
-                                                             @Positive
-                                                             Integer id) throws PaymentHistoricNotFoundException {
+                                                                    @Valid
+                                                                    @Positive
+                                                                    Integer id) throws PaymentHistoricNotFoundException {
         log.info("GET - Searching for a specific historic id {}.", id);
         PaymentHistoricResponse returnHistoric = this.paymentHistoricService.retrieveHistoric(id);
 
@@ -125,7 +125,7 @@ public class PaymentHistoricController {
             }
     )
     public ResponseEntity<PaymentHistoricResponse> updateHistoric(@RequestBody
-                                                           @Valid
+                                                                  @Valid
                                                                   PaymentHistoricRequest paymentHistoricRequest) throws PaymentHistoricCreateException {
         log.info("PUT - Update historic information {}", paymentHistoricRequest);
         PaymentHistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(paymentHistoricRequest);
@@ -156,8 +156,8 @@ public class PaymentHistoricController {
             }
     )
     public ResponseEntity<PaymentHistoricResponse> createHistoric(@RequestBody
-                                                           @Valid
-                                                                      PaymentHistoricRequest paymentHistoricRequest,
+                                                                  @Valid
+                                                                  PaymentHistoricRequest paymentHistoricRequest,
                                                                   UriComponentsBuilder uriBuilder) throws PaymentHistoricCreateException {
         log.info("POST - Create a historic {}", paymentHistoricRequest);
         PaymentHistoricResponse returnHistoric = this.paymentHistoricService.createHistoric(paymentHistoricRequest);

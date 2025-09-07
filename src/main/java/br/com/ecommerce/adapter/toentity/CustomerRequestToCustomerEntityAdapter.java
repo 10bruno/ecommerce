@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerRequestToCustomerEntityAdapter {
-
     public CustomerEntity getCustomerEntity(CustomerRequest customerRequest) {
         return new CustomerEntity(customerRequest.getCpf(), customerRequest.getName(), customerRequest.getBirthDate(), customerRequest.getGender());
     }

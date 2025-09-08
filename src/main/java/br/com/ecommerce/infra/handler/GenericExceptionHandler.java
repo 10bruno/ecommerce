@@ -34,7 +34,11 @@ public class GenericExceptionHandler {
             {CustomerCreateException.class,
                     PaymentHistoricCreateException.class,
                     InventoryCreateException.class,
-                    ProductCreateException.class})
+                    ProductCreateException.class,
+                    CustomerDeleteException.class,
+                    PaymentHistoricDeleteException.class,
+                    InventoryDeleteException.class,
+                    ProductDeleteException.class})
     public ResponseEntity<Object> handleExceptionInternalError(Exception exception, Throwable cause) {
         return getErrorResponse(exception.getMessage(), cause, HttpStatus.INTERNAL_SERVER_ERROR);
     }

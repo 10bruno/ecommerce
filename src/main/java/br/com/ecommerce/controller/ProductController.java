@@ -3,7 +3,6 @@ package br.com.ecommerce.controller;
 import br.com.ecommerce.controller.common.constant.ControllerConstant;
 import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
-import br.com.ecommerce.domain.service.ProductService;
 import br.com.ecommerce.infra.exception.ProductCreateException;
 import br.com.ecommerce.infra.exception.ProductDeleteException;
 import br.com.ecommerce.infra.exception.ProductNotFoundException;
@@ -13,33 +12,16 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/product")
-@Tag(name = ControllerConstant.PRODUCT, description = "CRUD of the product service.")
-@Slf4j
-@Validated
-public class ProductController {
-
-
-    private final ProductService productService;
-
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+public interface ProductController {
 
     @GetMapping("/{id}")
     @Operation(
@@ -63,15 +45,10 @@ public class ProductController {
                                     )))
             }
     )
-    public ResponseEntity<ProductResponse> retrieveProduct(@PathVariable(name = "id")
-                                                           @Valid
-                                                           @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
-                                                           String id) throws ProductNotFoundException {
-        log.info("GET - Searching for a specific product id {}.", id);
-        ProductResponse returnProduct = this.productService.retrieveProduct(id);
-
-        return ResponseEntity.ok(returnProduct);
-    }
+    ResponseEntity<ProductResponse> retrieveProduct(@PathVariable(name = "id")
+                                                    @Valid
+                                                    @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
+                                                    String id) throws ProductNotFoundException;
 
     @GetMapping()
     @Operation(
@@ -96,12 +73,7 @@ public class ProductController {
                                     )))
             }
     )
-    public ResponseEntity<List<ProductResponse>> retrieveListProducts() throws ProductNotFoundException {
-        log.info("GET - Searching all products.");
-        List<ProductResponse> listProducts = this.productService.retrieveListProducts();
-
-        return ResponseEntity.ok(listProducts);
-    }
+    ResponseEntity<List<ProductResponse>> retrieveListProducts() throws ProductNotFoundException;
 
     @PutMapping()
     @Operation(
@@ -125,14 +97,9 @@ public class ProductController {
                                     )))
             }
     )
-    public ResponseEntity<ProductResponse> updateProduct(@RequestBody
-                                                         @Valid
-                                                         ProductRequest productRequest) throws ProductCreateException {
-        log.info("PUT - Update product information {}.", productRequest);
-        ProductResponse returnProduct = this.productService.createProduct(productRequest);
-
-        return ResponseEntity.ok(returnProduct);
-    }
+    ResponseEntity<ProductResponse> updateProduct(@RequestBody
+                                                  @Valid
+                                                  ProductRequest productRequest) throws ProductCreateException;
 
     @PostMapping()
     @Operation(
@@ -156,17 +123,10 @@ public class ProductController {
                                     )))
             }
     )
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody
-                                                         @Valid
-                                                         ProductRequest productRequest,
-                                                         UriComponentsBuilder uriBuilder) throws ProductCreateException {
-        log.info("POST - Create a product {}.", productRequest);
-        ProductResponse returnProduct = this.productService.createProduct(productRequest);
-
-        var uri = uriBuilder.path("/product/{id}").buildAndExpand(returnProduct.getCode()).toUri();
-
-        return ResponseEntity.created(uri).body(returnProduct);
-    }
+    ResponseEntity<ProductResponse> createProduct(@RequestBody
+                                                  @Valid
+                                                  ProductRequest productRequest,
+                                                  UriComponentsBuilder uriBuilder) throws ProductCreateException;
 
     @DeleteMapping("/{id}")
     @Operation(
@@ -187,12 +147,7 @@ public class ProductController {
                                     )))
             }
     )
-    public ResponseEntity<String> deleteProduct(@PathVariable
-                                                @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
-                                                String id) throws ProductDeleteException {
-        log.info("DELETE - Delete a product {}.", id);
-        this.productService.deleteProduct(id);
-
-        return ResponseEntity.noContent().build();
-    }
+    ResponseEntity<String> deleteProduct(@PathVariable
+                                         @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
+                                         String id) throws ProductDeleteException;
 }

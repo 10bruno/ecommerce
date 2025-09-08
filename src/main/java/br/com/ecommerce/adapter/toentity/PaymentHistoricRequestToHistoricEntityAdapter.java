@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentHistoricRequestToHistoricEntityAdapter {
-
     public PaymentHistoricEntity getHistoricEntity(PaymentHistoricRequest paymentHistoricRequest) {
         return new PaymentHistoricEntity(paymentHistoricRequest.getId(), paymentHistoricRequest.getDescription(), paymentHistoricRequest.getType(), paymentHistoricRequest.getDate());
     }

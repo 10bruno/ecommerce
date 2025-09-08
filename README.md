@@ -21,6 +21,8 @@ Project created for study and aims to be a REST api of a CRUD:
 * Handler exceptions
 * Work with parameterizations
 * Use of RedisDB
+* Spring Security
+* Kafka
 
 ---
 
@@ -48,6 +50,11 @@ Project created for study and aims to be a REST api of a CRUD:
 | Implement Spring Security                       | :black_square_button: |            |
 | Create cache on RedisDB                         | :black_square_button: |            |
 | Study implementation of the record type         | :black_square_button: |            |
+| TestContainers                                  | :black_square_button: |            |
+| Upgrade Java version to 21                      | :black_square_button: |            |
+| Implement integration with Kafka                | :black_square_button: |            |
+| Create integration with MongoDB                 | :black_square_button: |            |
+| Implement Schedulers for processing             | :black_square_button: |            |
 
 ---
 

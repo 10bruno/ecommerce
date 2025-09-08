@@ -44,7 +44,7 @@ Project created for study and aims to be a REST api of a CRUD:
 | Create a local Docker for Mysql                 | :heavy_check_mark:    | 26/05/2024 |
 | Create a local Docker for Postgresql            | :heavy_check_mark:    | 26/05/2024 |
 | Create db scripts for flyway                    | :heavy_check_mark:    | 26/05/2024 |
-| Finish unit tests                               | :black_square_button: |            |
+| Finish unit tests                               | :heavy_check_mark:    | 07/09/2025 |
 | Implement Spring Security                       | :black_square_button: |            |
 | Create cache on RedisDB                         | :black_square_button: |            |
 | Study implementation of the record type         | :black_square_button: |            |

@@ -7,7 +7,7 @@ import br.com.ecommerce.controller.request.CustomerRequest;
 import br.com.ecommerce.controller.response.CustomerResponse;
 import br.com.ecommerce.domain.entity.postgres.CustomerEntity;
 import br.com.ecommerce.domain.repository.postgres.CustomerRepository;
-import br.com.ecommerce.domain.service.impl.CustomerServiceImpl;
+import br.com.ecommerce.domain.service.CustomerService;
 import br.com.ecommerce.infra.exception.CustomerCreateException;
 import br.com.ecommerce.infra.exception.CustomerDeleteException;
 import br.com.ecommerce.infra.exception.CustomerNotFoundException;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 class CustomerServiceTest {
 
     @InjectMocks
-    private CustomerServiceImpl customerService;
+    private CustomerService customerService;
 
     @Mock
     private CustomerRepository customerRepository;
@@ -137,7 +137,7 @@ class CustomerServiceTest {
     }
 
     @Test
-    void shouldDeleteCustomer_whenDeleteCustomerSuccess() throws CustomerDeleteException {
+    void shouldDeleteCustomer_whenDeleteCustomerSuccess() {
         doNothing().when(customerRepository).deleteById(TestConstants.CPF);
 
         assertDoesNotThrow(() -> customerService.deleteCustomer(TestConstants.CPF));

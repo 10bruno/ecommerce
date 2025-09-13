@@ -1,4 +1,3 @@
-version: "3.9"
 name: "dblocal"
 services:
   mysqldb:
@@ -17,8 +16,8 @@ services:
     restart: always
     container_name: postgresdb
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: pagamentos
+      POSTGRES_PASSWORD: pagamentos
       POSTGRES_DB: pagamentos
     volumes:
       - ./db/postgresql/docker:/docker-entrypoint-initdb.d/

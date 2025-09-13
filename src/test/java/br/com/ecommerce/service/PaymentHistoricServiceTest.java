@@ -7,7 +7,7 @@ import br.com.ecommerce.controller.request.PaymentHistoricRequest;
 import br.com.ecommerce.controller.response.PaymentHistoricResponse;
 import br.com.ecommerce.domain.entity.mysql.PaymentHistoricEntity;
 import br.com.ecommerce.domain.repository.mysql.PaymentHistoricRepository;
-import br.com.ecommerce.domain.service.impl.PaymentHistoricServiceImpl;
+import br.com.ecommerce.domain.service.PaymentHistoricService;
 import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
 import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
 import br.com.ecommerce.infra.exception.PaymentHistoricNotFoundException;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 class PaymentHistoricServiceTest {
 
     @InjectMocks
-    private PaymentHistoricServiceImpl paymentHistoricService;
+    private PaymentHistoricService paymentHistoricService;
 
     @Mock
     private PaymentHistoricRepository paymentHistoricRepository;
@@ -145,7 +145,7 @@ class PaymentHistoricServiceTest {
     }
 
     @Test
-    void shouldDeletePaymentHistoric_whenDeleteHistoricSuccess() throws PaymentHistoricDeleteException {
+    void shouldDeletePaymentHistoric_whenDeleteHistoricSuccess() {
         doNothing().when(paymentHistoricRepository).deleteById(TestConstants.ID_1);
 
         assertDoesNotThrow(() -> paymentHistoricService.deleteHistoric(TestConstants.ID_1));

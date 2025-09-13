@@ -77,9 +77,7 @@ public class ProductControllerImpl implements ProductController {
     }
 
     @Override
-    public ResponseEntity<String> deleteProduct(@PathVariable
-                                                @Pattern(regexp = "^[A-Z]{2}\\d{4}$", message = "Invalid code format.")
-                                                String id) throws ProductDeleteException {
+    public ResponseEntity<String> deleteProduct(String id) throws ProductDeleteException {
         log.info("DELETE - Delete a product {}.", id);
         this.productService.deleteProduct(id);
 

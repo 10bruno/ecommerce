@@ -7,7 +7,7 @@ import br.com.ecommerce.controller.request.ProductRequest;
 import br.com.ecommerce.controller.response.ProductResponse;
 import br.com.ecommerce.domain.entity.postgres.ProductEntity;
 import br.com.ecommerce.domain.repository.postgres.ProductRepository;
-import br.com.ecommerce.domain.service.impl.ProductServiceImpl;
+import br.com.ecommerce.domain.service.ProductService;
 import br.com.ecommerce.infra.exception.ProductCreateException;
 import br.com.ecommerce.infra.exception.ProductDeleteException;
 import br.com.ecommerce.infra.exception.ProductNotFoundException;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 class ProductServiceTest {
 
     @InjectMocks
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     @Mock
     private ProductRepository productRepository;
@@ -137,7 +137,7 @@ class ProductServiceTest {
     }
 
     @Test
-    void shouldDeleteProduct_whenDeleteProductSuccess() throws ProductDeleteException {
+    void shouldDeleteProduct_whenDeleteProductSuccess() {
         doNothing().when(productRepository).deleteById(TestConstants.PRODUCT_CODE);
 
         assertDoesNotThrow(() -> productService.deleteProduct(TestConstants.PRODUCT_CODE));

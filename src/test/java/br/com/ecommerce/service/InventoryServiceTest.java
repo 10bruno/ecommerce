@@ -7,7 +7,7 @@ import br.com.ecommerce.controller.request.InventoryRequest;
 import br.com.ecommerce.controller.response.InventoryResponse;
 import br.com.ecommerce.domain.entity.postgres.InventoryEntity;
 import br.com.ecommerce.domain.repository.postgres.InventoryRepository;
-import br.com.ecommerce.domain.service.impl.InventoryServiceImpl;
+import br.com.ecommerce.domain.service.InventoryService;
 import br.com.ecommerce.infra.exception.InventoryCreateException;
 import br.com.ecommerce.infra.exception.InventoryDeleteException;
 import br.com.ecommerce.infra.exception.InventoryNotFoundException;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 class InventoryServiceTest {
 
     @InjectMocks
-    private InventoryServiceImpl inventoryService;
+    private InventoryService inventoryService;
 
     @Mock
     private InventoryRepository inventoryRepository;
@@ -137,7 +137,7 @@ class InventoryServiceTest {
     }
 
     @Test
-    void shouldDeleteInventory_whenDeleteInventorySuccess() throws InventoryDeleteException {
+    void shouldDeleteInventory_whenDeleteInventorySuccess() {
         doNothing().when(inventoryRepository).deleteById(TestConstants.ID_1);
 
         assertDoesNotThrow(() -> inventoryService.deleteInventory(TestConstants.ID_1));

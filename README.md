@@ -48,7 +48,7 @@ Project created for study and aims to be a REST api of a CRUD:
 | Create db scripts for flyway                                   | :heavy_check_mark:    | 26/05/2024 |
 | Finish unit tests                                              | :heavy_check_mark:    | 07/09/2025 |
 | Refactor to simplify and adjusts Docker                        | :heavy_check_mark:    | 13/09/2025 |
-| Implement Spring Security                                      | :black_square_button: |            |
+| Implement Spring Security                                      | :heavy_check_mark:    | 14/09/2025 |
 | Create cache on RedisDB                                        | :black_square_button: |            |
 | Study implementation of the record type                        | :black_square_button: |            |
 | Upgrade Java version to 21                                     | :black_square_button: |            |

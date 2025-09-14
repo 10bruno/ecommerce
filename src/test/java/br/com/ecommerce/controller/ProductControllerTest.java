@@ -1,5 +1,6 @@
 package br.com.ecommerce.controller;
 
+import br.com.ecommerce.config.WebSecurityConfig;
 import br.com.ecommerce.controller.impl.ProductControllerImpl;
 import br.com.ecommerce.domain.service.ProductService;
 import br.com.ecommerce.infra.exception.ProductCreateException;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -24,7 +27,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WithMockUser(username = "usuario", password = "senha", roles = "PAGAMENTOS")
 @WebMvcTest(ProductControllerImpl.class)
+@Import(WebSecurityConfig.class)
 @AutoConfigureMockMvc
 class ProductControllerTest {
 

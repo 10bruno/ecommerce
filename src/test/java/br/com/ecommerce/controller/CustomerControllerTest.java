@@ -1,5 +1,6 @@
 package br.com.ecommerce.controller;
 
+import br.com.ecommerce.config.WebSecurityConfig;
 import br.com.ecommerce.domain.service.CustomerService;
 import br.com.ecommerce.infra.exception.CustomerCreateException;
 import br.com.ecommerce.infra.exception.CustomerDeleteException;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -20,10 +23,13 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WithMockUser(username = "usuario", password = "senha", roles = "PAGAMENTOS")
 @WebMvcTest(CustomerController.class)
+@Import(WebSecurityConfig.class)
 @AutoConfigureMockMvc
 class CustomerControllerTest {
 
@@ -128,6 +134,7 @@ class CustomerControllerTest {
                 .perform(put("/customer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(customerRequest)))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.cpf", notNullValue()));
     }

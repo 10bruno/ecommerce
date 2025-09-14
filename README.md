@@ -72,6 +72,9 @@ Project created for study and aims to be a REST api of a CRUD:
 * After creating the database, start the application
 * Include to VM Options: -Dspring.profiles.active=local
 * Url Swagger: http://localhost:8080/ecommerce/swagger-ui/index.html#/
+* O projeto usa Spring Security e é configurado na classe WebSecurityConfig
+  * Para realizar uma requisição autenticada, segue um exemplo para executar no PowerShell
+  * $headers = @{Authorization = "Basic " + [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes("usuario:senha"))}; Invoke-RestMethod -Uri "http://localhost:8080/ecommerce/customer" -Method Get -Headers $headers
 
 
 ### References

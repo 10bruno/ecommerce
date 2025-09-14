@@ -13,7 +13,7 @@ spring:
 
 postgres:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/pagamentos
+    jdbc-url: jdbc:postgresql://localhost:5432/pagamentos?currentSchema=pagamentos
     username: pagamentos
     password: pagamentos
     driverClassName: org.postgresql.Driver

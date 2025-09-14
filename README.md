@@ -3,7 +3,6 @@
 [![Java](https://img.shields.io/badge/Java-19-orange.svg)](https://openjdk.java.net/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0.2-brightgreen.svg)](https://spring.io/projects/spring-boot)
 [![Gradle](https://img.shields.io/badge/Gradle-7.6-blue.svg)](https://gradle.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > A comprehensive REST API e-commerce platform built for learning and demonstration purposes, featuring modern Spring Boot architecture with multiple database integrations and security.
 

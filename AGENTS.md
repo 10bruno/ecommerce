@@ -97,6 +97,31 @@ propriedades de configuração que você "lembra" provavelmente estão erradas.
       não significa "sem achado relevante" — a Onda -1/3.5.x existe
       justamente para revelar esses achados com antecedência.
 
+13. **`--rerun` não é uma flag válida do Gradle — é `--rerun-tasks`.**
+    O parser do Gradle aceita prefixos ambíguos sem sempre avisar, então
+    `--rerun` pode ser silenciosamente ignorado em vez de rejeitado, e o
+    build reporta `up-to-date` mesmo quando a intenção era forçar
+    reexecução. **Use sempre o nome completo `--rerun-tasks`, ou prefira
+    `clean` antes de builds cuja verificação precisa ser inequívoca** —
+    `clean` elimina qualquer artefato de cache, tornando `up-to-date`
+    fisicamente impossível. A própria ferramenta de verificação pode
+    mentir por engano de sintaxe, não só por cache — trate flags de
+    verificação com o mesmo ceticismo que resultados de teste.
+
+14. **No Windows, `Out-File -Encoding utf8` insere BOM (`EF BB BF`) no
+    início do arquivo — quebra parsers JSON silenciosamente.** Sintoma:
+    `JSONException`/`FileNotFoundException` estranho ao ler um golden file
+    que existe e parece correto ao abrir num editor. Ao criar arquivos
+    `.json` de golden file via PowerShell, use
+    `[System.IO.File]::WriteAllText(caminho, conteudo, [System.Text.UTF8Encoding]::new($false))`
+    — o parâmetro `$false` força UTF-8 sem BOM. Verificável com
+    `Format-Hex arquivo.json`: os 3 primeiros bytes não podem ser
+    `EF BB BF`.
+    (Nota: agentes de IDE que escrevem arquivo via API própria, não via
+    `Out-File`, normalmente não têm esse problema — mas verifique mesmo
+    assim antes de assumir. Checagem rápida em lote:
+    `Get-ChildItem <pasta> -Filter "*.json" | ForEach-Object { $b = [System.IO.File]::ReadAllBytes($_.FullName); "$($_.Name): BOM=$($b[0] -eq 0xEF -and $b[1] -eq 0xBB -and $b[2] -eq 0xBF)" }`)
+
 ---
 
 ## Ordem de execução

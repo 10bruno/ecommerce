@@ -1,0 +1,6 @@
+{
+  "id" : 1,
+  "description" : "Test Payment",
+  "type" : "CREDIT_CARD",
+  "date" : "2026-07-19"
+}

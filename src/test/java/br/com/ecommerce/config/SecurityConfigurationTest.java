@@ -1,26 +1,57 @@
 package br.com.ecommerce.config;
 
+import br.com.ecommerce.controller.CustomerController;
+import br.com.ecommerce.controller.InventoryController;
+import br.com.ecommerce.controller.ParameterController;
+import br.com.ecommerce.controller.PaymentHistoricController;
+import br.com.ecommerce.controller.impl.ProductControllerImpl;
+import br.com.ecommerce.domain.service.CustomerService;
+import br.com.ecommerce.domain.service.InventoryService;
+import br.com.ecommerce.service.ParameterService;
+import br.com.ecommerce.domain.service.PaymentHistoricService;
+import br.com.ecommerce.domain.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import br.com.ecommerce.config.WebSecurityConfig;
+import org.springframework.context.annotation.Import;
 
 import static org.hamcrest.Matchers.not;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+@WebMvcTest({
+    CustomerController.class,
+    InventoryController.class,
+    ParameterController.class,
+    PaymentHistoricController.class,
+    ProductControllerImpl.class
+})
+@Import(WebSecurityConfig.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class SecurityConfigurationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockitoBean
+    private CustomerService customerService;
+    @MockitoBean
+    private InventoryService inventoryService;
+    @MockitoBean
+    private ParameterService parameterService;
+    @MockitoBean
+    private PaymentHistoricService paymentHistoricService;
+    @MockitoBean
+    private ProductService productService;
 
     @Test
     @DisplayName("Deve permitir acesso público aos endpoints de parâmetros")

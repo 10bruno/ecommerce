@@ -14,15 +14,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.flyway.autoconfigure.FlywayAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.mysql.MySQLContainer;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -71,13 +71,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DualDatabasePersistenceGoldenTest {
 
     @Container
-    static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16")
+    static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:16")
             .withDatabaseName("pagamentos")
             .withUsername("pagamentos")
             .withPassword("pagamentos");
 
     @Container
-    static final MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.4")
+    static final MySQLContainer mysql = new MySQLContainer("mysql:8.4")
             .withDatabaseName("pagamentos")
             .withUsername("pagamentos")
             .withPassword("pagamentos");

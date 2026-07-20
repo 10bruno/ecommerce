@@ -10,7 +10,6 @@ import br.com.ecommerce.domain.repository.postgres.InventoryRepository;
 import br.com.ecommerce.infra.exception.InventoryCreateException;
 import br.com.ecommerce.infra.exception.InventoryDeleteException;
 import br.com.ecommerce.infra.exception.InventoryNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,6 @@ public class InventoryService {
     private final InventoryRequestToInventoryEntityAdapter inventoryRequestToInventoryEntityAdapter;
     private final InventoryEntityToResponseAdapter inventoryEntityToResponseAdapter;
 
-    @Autowired
     public InventoryService(InventoryRepository inventoryRepository, InventoryRequestToInventoryEntityAdapter inventoryRequestToInventoryEntityAdapter, InventoryEntityToResponseAdapter inventoryEntityToResponseAdapter) {
         this.inventoryRepository = inventoryRepository;
         this.inventoryRequestToInventoryEntityAdapter = inventoryRequestToInventoryEntityAdapter;

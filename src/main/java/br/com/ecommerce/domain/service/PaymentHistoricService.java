@@ -10,7 +10,6 @@ import br.com.ecommerce.domain.repository.mysql.PaymentHistoricRepository;
 import br.com.ecommerce.infra.exception.PaymentHistoricCreateException;
 import br.com.ecommerce.infra.exception.PaymentHistoricDeleteException;
 import br.com.ecommerce.infra.exception.PaymentHistoricNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +23,6 @@ public class PaymentHistoricService {
     private final PaymentHistoricRequestToHistoricEntityAdapter paymentHistoricRequestToHistoricEntityAdapter;
     private final PaymentHistoricEntityToResponseAdapter paymentHistoricEntityToResponseAdapter;
 
-    @Autowired
     public PaymentHistoricService(PaymentHistoricRepository paymentHistoricRepository, PaymentHistoricRequestToHistoricEntityAdapter paymentHistoricRequestToHistoricEntityAdapter, PaymentHistoricEntityToResponseAdapter paymentHistoricEntityToResponseAdapter) {
         this.paymentHistoricRepository = paymentHistoricRepository;
         this.paymentHistoricRequestToHistoricEntityAdapter = paymentHistoricRequestToHistoricEntityAdapter;

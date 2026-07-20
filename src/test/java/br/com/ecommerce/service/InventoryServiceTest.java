@@ -138,7 +138,6 @@ class InventoryServiceTest {
 
     @Test
     void shouldDeleteInventory_whenDeleteInventorySuccess() {
-        doNothing().when(inventoryRepository).deleteById(TestConstants.ID_1);
 
         assertDoesNotThrow(() -> inventoryService.deleteInventory(TestConstants.ID_1));
         

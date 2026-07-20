@@ -10,7 +10,6 @@ import br.com.ecommerce.domain.repository.postgres.CustomerRepository;
 import br.com.ecommerce.infra.exception.CustomerCreateException;
 import br.com.ecommerce.infra.exception.CustomerDeleteException;
 import br.com.ecommerce.infra.exception.CustomerNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,6 @@ public class CustomerService {
     private final CustomerRequestToCustomerEntityAdapter customerRequestToCustomerEntityAdapter;
     private final CustomerEntityToResponseAdapter customerEntityToResponseAdapter;
 
-    @Autowired
     public CustomerService(CustomerRepository customerRepository, CustomerEntityToResponseAdapter customerEntityToResponseAdapter, CustomerRequestToCustomerEntityAdapter customerRequestToCustomerEntityAdapter) {
         this.customerRepository = customerRepository;
         this.customerEntityToResponseAdapter = customerEntityToResponseAdapter;

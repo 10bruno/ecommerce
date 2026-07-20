@@ -10,7 +10,6 @@ import br.com.ecommerce.domain.repository.postgres.ProductRepository;
 import br.com.ecommerce.infra.exception.ProductCreateException;
 import br.com.ecommerce.infra.exception.ProductDeleteException;
 import br.com.ecommerce.infra.exception.ProductNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +22,6 @@ public class ProductService {
     private final ProductRequestToProductEntityAdapter productRequestToProductEntityAdapter;
     private final ProductEntityToResponseAdapter productEntityToResponseAdapter;
 
-    @Autowired
     public ProductService(ProductRepository productRepository, ProductRequestToProductEntityAdapter productRequestToProductEntityAdapter, ProductEntityToResponseAdapter productEntityToResponseAdapter) {
         this.productRepository = productRepository;
         this.productRequestToProductEntityAdapter = productRequestToProductEntityAdapter;

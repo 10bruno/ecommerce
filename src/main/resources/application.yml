@@ -1,6 +1,6 @@
 spring:
   jackson:
-    use-jackson2-defaults: true
+    use-jackson2-defaults: false
 
   jpa:
     show-sql: true

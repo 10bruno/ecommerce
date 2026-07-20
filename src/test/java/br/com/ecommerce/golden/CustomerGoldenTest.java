@@ -61,4 +61,17 @@ class CustomerGoldenTest {
         assertThat(desserializado.getBirthDate()).isEqualTo("15111989");
         assertThat(desserializado.getGender()).isEqualTo("M");
     }
+
+    @Test
+    void desserializacaoDeCustomerRequest_ignoraCampoJsonDesconhecido() throws Exception {
+        String jsonComCampoExtra = "{\"cpf\":\"12345678910\",\"name\":\"Bruno\","
+                + "\"birthDate\":\"15111989\",\"gender\":\"M\",\"campoInexistente\":\"x\"}";
+
+        CustomerRequest desserializado = requestJson.parseObject(jsonComCampoExtra);
+
+        assertThat(desserializado.getCpf()).isEqualTo("12345678910");
+        assertThat(desserializado.getName()).isEqualTo("Bruno");
+        assertThat(desserializado.getBirthDate()).isEqualTo("15111989");
+        assertThat(desserializado.getGender()).isEqualTo("M");
+    }
 }

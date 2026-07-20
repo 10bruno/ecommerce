@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,6 @@ public class ProductControllerImpl implements ProductController {
 
     private final ProductService productService;
 
-    @Autowired
     public ProductControllerImpl(ProductService productService) {
         this.productService = productService;
     }

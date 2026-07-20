@@ -138,7 +138,6 @@ class CustomerServiceTest {
 
     @Test
     void shouldDeleteCustomer_whenDeleteCustomerSuccess() {
-        doNothing().when(customerRepository).deleteById(TestConstants.CPF);
 
         assertDoesNotThrow(() -> customerService.deleteCustomer(TestConstants.CPF));
         

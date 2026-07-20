@@ -1,4 +1,7 @@
 spring:
+  jackson:
+    use-jackson2-defaults: true
+
   jpa:
     show-sql: true
     generate-ddl: true
@@ -45,5 +48,5 @@ parameter:
 server:
   servlet:
     context-path: /ecommerce
-  error:
-    include-stacktrace: never
+
+spring.web.error.include-stacktrace: never

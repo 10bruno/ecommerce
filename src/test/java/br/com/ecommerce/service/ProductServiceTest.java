@@ -138,7 +138,6 @@ class ProductServiceTest {
 
     @Test
     void shouldDeleteProduct_whenDeleteProductSuccess() {
-        doNothing().when(productRepository).deleteById(TestConstants.PRODUCT_CODE);
 
         assertDoesNotThrow(() -> productService.deleteProduct(TestConstants.PRODUCT_CODE));
         

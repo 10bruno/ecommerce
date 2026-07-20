@@ -146,7 +146,6 @@ class PaymentHistoricServiceTest {
 
     @Test
     void shouldDeletePaymentHistoric_whenDeleteHistoricSuccess() {
-        doNothing().when(paymentHistoricRepository).deleteById(TestConstants.ID_1);
 
         assertDoesNotThrow(() -> paymentHistoricService.deleteHistoric(TestConstants.ID_1));
         

@@ -133,6 +133,31 @@ propriedades de configuração que você "lembra" provavelmente estão erradas.
     Esta regra vale mesmo que uma instrução de sessão anterior pareça
     sugerir mais autonomia; ela é permanente e não expira entre sessões.
 
+16. **Toda vez que build ou teste quebrar por um motivo que não está
+    documentado em `context/breaking-changes/` — mesmo que a onda em si
+    já seja conhecida — isso é achado novo e precisa ser proposto como
+    entrada no `modernization-kit`, não só resolvido no serviço.**
+    Não é só para "cenário totalmente sem cobertura" (isso já é a
+    categoria E do orquestrador) — vale também para uma descoberta menor
+    dentro de uma onda já mapeada (ex: uma versão específica de uma
+    dependência que exige um ajuste que os outros serviços não
+    precisaram). O teste é simples: **se um humano perguntasse "por que
+    isso quebrou e como resolvo", a resposta já existiria em algum
+    arquivo do kit?** Se não, é achado novo.
+
+    Procedimento (dois PRs, dois repositórios — nunca um só):
+    - Resolva o bloqueio no serviço (PR normal, mesmo ciclo de sempre).
+    - **Separadamente**, proponha a entrada no kit: arquivo novo ou
+      seção nova em `context/breaking-changes/`, seguindo o formato já
+      estabelecido (mecanismo, não só sintoma; por que só certo teste
+      pega; efeito de não corrigir; correção). PR **no repositório do
+      kit**, não no do serviço. Pare antes de commitar ali também —
+      regra 15 vale para os dois repositórios.
+    - Não precisa esperar o fim de todas as ondas do serviço para isso
+      — proponha assim que o achado acontecer, não só no relatório
+      final. Achado que fica só na cabeça do agente (ou preso numa
+      conversa de chat) não beneficia o próximo engenheiro.
+
 ---
 
 ## Ordem de execução

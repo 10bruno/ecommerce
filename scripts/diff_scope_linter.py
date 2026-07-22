@@ -93,6 +93,7 @@ def main():
         sys.exit(0)
 
     onda_nome, onda_regras = matched
+    sempre_permitido = rules.get("sempre_permitido", [])
     allow = onda_regras.get("allow", [])
     deny = onda_regras.get("deny", [])
 
@@ -108,6 +109,9 @@ def main():
     violations = []
 
     for path in changed_files:
+        if match_any(path, sempre_permitido):
+            continue
+
         denied_by = match_any(path, deny)
         if denied_by:
             violations.append((path, f"PROIBIDO explicitamente por '{denied_by}'"))

@@ -1,6 +1,14 @@
 {
   "_comentario": "Regras de escopo de diff por tipo de onda. O linter (diff_scope_linter.py) infere o tipo de onda a partir do nome da branch atual -- mesma convencao ja usada em todo o RUNBOOK.md e nos prompt files (onda-0-gradle, onda-3-boot-major, etc). 'allow': se existir, TODO arquivo alterado precisa bater com pelo menos um padrao. 'deny': checado ANTES de allow, sempre vence. Padroes usam sintaxe glob (fnmatch), ** = qualquer profundidade.",
 
+  "sempre_permitido": [
+    "scripts/**",
+    "context/guardrails/**",
+    ".github/**",
+    "AGENTS.md"
+  ],
+  "_nota_sempre_permitido": "Achado real de teste (piloto ecommerce, 22/07/2026): instalar o proprio linter/guardrail numa onda de golden files foi barrado pelo linter, porque scripts/diff_scope_linter.py e context/guardrails/scope-rules.json nao batiam com o escopo daquela onda especifica. Esses caminhos sao infraestrutura do processo em si (sync do AGENTS.md, instalacao de guardrail), nao pertencem a nenhuma onda de codigo -- ficam liberados para qualquer onda, verificados ANTES do allow/deny especifico.",
+
   "ondas": {
     "onda-0-gradle": {
       "allow": ["gradle/wrapper/**", "gradlew", "gradlew.bat", "build.gradle", "settings.gradle"]
